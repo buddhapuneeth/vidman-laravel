@@ -34,6 +34,12 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
 					<li><a href="{{ url('/') }}">Home</a></li>
+					<li><div class='container search-bar'>
+				<form>
+					<input type="text" size="40" class="search-box" placeholder="Search...." autofocus >
+					<button type="button" class="search-button"  ><span class="glyphicon glyphicon-search"></span></button>
+				</form>
+			</div></li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">

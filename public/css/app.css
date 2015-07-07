@@ -6231,3 +6231,24 @@ label,
 .checkbox label {
   font-weight: 300;
 }
+.search-box {
+                    padding:8px 15px;
+                    background:rgba(50, 50, 50, 0.2);
+                    border:0px solid #dbdbdb;
+    }
+    .search-button {
+                    position:relative;
+                    padding:6px 15px;
+                    left:-8px;
+                    border:2px solid #207cca;
+                    background-color:#207cca;
+                    color:#fafafa;
+    }
+    .search-button:hover  {
+            
+                    box-shadow:0.5px 1px 0px 0px #888;
+                    font-weight: bold;
+    }
+    .search-bar{
+                    display:inline;
+    }

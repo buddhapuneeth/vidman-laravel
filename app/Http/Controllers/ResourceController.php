@@ -1,24 +1,37 @@
 <?php namespace App\Http\Controllers;
 
-use Input;
-use Redirect;
-use App\Video;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-class VideosController extends Controller {
+class ResourceController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
+	public function getVideo($filename){
+
+		$path = \Config::get('res.up-videos').'/'.$filename;
+
+		$file = new \Symfony\Component\HttpFoundation\File\File($path);
+
+		$response = \Response::make(
+				\File::get($path),
+				200
+			);
+
+		$response->header('Content-type', $file->getMimeType());
+		//return the video
+		return $response;
+	}
+
+
 	public function index()
 	{
-		$videos = Video::all();
-		return view('videos.index', compact('videos'));
+		//
 	}
 
 	/**
@@ -28,7 +41,7 @@ class VideosController extends Controller {
 	 */
 	public function create()
 	{
-		return view('videos.create');
+		//
 	}
 
 	/**
@@ -38,11 +51,7 @@ class VideosController extends Controller {
 	 */
 	public function store()
 	{
-		$input = Input::all();
-		echo implode(" ",$input);
-		//Video::create( $input );
- 
-		//return Redirect::route('videos.index')->with('message', 'Video created');
+		//
 	}
 
 	/**
@@ -51,9 +60,9 @@ class VideosController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($video)
+	public function show($id)
 	{
-		return view('videos.show', compact('video'));
+		//
 	}
 
 	/**
@@ -62,9 +71,9 @@ class VideosController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($video)
+	public function edit($id)
 	{
-		return view('videos.edit', compact('video'));
+		//
 	}
 
 	/**
@@ -73,7 +82,7 @@ class VideosController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($video)
+	public function update($id)
 	{
 		//
 	}
@@ -84,7 +93,7 @@ class VideosController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($video)
+	public function destroy($id)
 	{
 		//
 	}

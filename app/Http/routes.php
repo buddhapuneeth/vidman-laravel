@@ -10,10 +10,14 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+// Provide controller methods with object instead of ID
+Route::model('videos', 'Video');
 
 Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
+
+Route::get('resources/videos/{file}', 'ResourceController@getVideo');
 
 Route::resource('videos', 'VideosController');
 
@@ -25,3 +29,4 @@ Route::controllers([
 Route::bind('videos', function($value, $route){
 		return App\Video::whereSlug($value)->first();
 	});
+

@@ -16,6 +16,7 @@ class CreateVideosTable extends Migration {
 		{
 			$table->increments('id');
                         $table->string('vid_name')->default('');
+                        $table->string('slug')->default('');
                         $table->string('topic')->default('');
                         $table->string('class')->default('');
                         $table->string('instructor')->default('');
@@ -37,7 +38,7 @@ class CreateVideosTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('videos_table');
+		Schema::drop('videos');
 	}
 
 }
