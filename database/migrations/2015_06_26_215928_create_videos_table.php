@@ -22,12 +22,13 @@ class CreateVideosTable extends Migration {
                         $table->string('instructor')->default('');
                         $table->string('vid_url')->default('');
                         $table->boolean('isVerified')->default(false);
-                        $table->date('created_on')->default(NULL);
+                        $table->date('created_at')->default(NULL);
                         $table->string('created_by')->default('');
-                        $table->date('update_on')->default(NULL);
+                        $table->date('updated_at')->default(NULL);
                         $table->string('updated_by')->default('');
                         $table->string('title')->default('');
                         $table->string('tags')->default('');
+                        $table->string('semester')->default('');
 		});
 	}
 

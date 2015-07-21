@@ -5,8 +5,9 @@ use Redirect;
 use App\Video;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use Xavrsl\Cas\Facades\Cas;
 use Illuminate\Http\Request;
+
 
 class VideosController extends Controller {
 
@@ -36,13 +37,37 @@ class VideosController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		$input = Input::all();
-		echo implode(" ",$input);
-		//Video::create( $input );
- 
-		//return Redirect::route('videos.index')->with('message', 'Video created');
+			
+			//print_r($request->input('vid_name'));
+			
+			$vid_slug = $request->input('class') . '-' .$request->input('title');
+			
+
+			$newvid = new Video(array(
+					'vid_name' => $request->input('vid_name'),
+					'slug' => $vid_slug,
+					'topic' => $request->input('topic'),
+					'class' => $request->input('class'),
+					'instructor' => $request->input('instructor'),
+					'vid_url' => $request->input('title'). '.' . $request->file('lvideo')->getClientOriginalExtension(),
+					'title' => $request->input('title'),
+					'isVerified' => FALSE,
+					'created_at' => date("Y-m-d"),
+					'created_by' => 'ravi',//Cas::getCurrentUser(),
+					'tags' => '',
+					'semester' => $request->input('sem') . $request->input('year')
+				)); 
+			
+		$newvid->save();
+ 		print_r($newvid);
+
+ 		$request->file('lvideo')->move(
+        base_path() . '/resources/uploaded_videos/' . $request->input('class') . '/' . $request->input('instructor') . '/', $newvid->vid_url
+        );
+
+		//return Redirect::route('videos.index')->with('message', 'Video Uploaded');
 	}
 
 	/**
@@ -73,9 +98,29 @@ class VideosController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($video)
+	public function update($video, Request $request)
 	{
-		//
+		$input = array_except(Input::all(), '_method');
+		
+		$videdit = array(
+					'vid_name' => $request->input('vid_name'),
+					'topic' => $request->input('topic'),
+					'class' => $request->input('class'),
+					'instructor' => $request->input('instructor'),
+					'title' => $request->input('title'),
+					'isVerified' => FALSE,
+					'created_at' => date("Y-m-d"),
+					'created_by' => 'ravi',//Cas::getCurrentUser(),
+					'tags' => '',
+					'semester' => $request->input('sem') . $request->input('year')
+				);
+
+
+
+		$video->update($videdit);
+		print_r($video);
+		
+
 	}
 
 	/**
