@@ -24,7 +24,7 @@ class CreateVideosTable extends Migration {
                         $table->boolean('isVerified')->default(false);
                         $table->date('created_at')->default(NULL);
                         $table->string('created_by')->default('');
-                        $table->date('updated_at')->default(NULL);
+                        $table->date('updated_at')->default(NULL)->nullable();
                         $table->string('updated_by')->default('');
                         $table->string('title')->default('');
                         $table->string('tags')->default('');

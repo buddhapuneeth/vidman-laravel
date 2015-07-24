@@ -10,8 +10,9 @@
             'files' => true)
             ) 
     !!}
-
-        @include('videos/partials/_form', ['submit_text' => 'Upload'])
+    
+            @include('videos/partials/_form', ['submit_text' => 'Upload'])
+        
     
     {!! Form::close() !!}
 @endsection

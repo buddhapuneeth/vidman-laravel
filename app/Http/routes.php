@@ -17,7 +17,7 @@ Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
 
-Route::get('resources/videos/{file}', 'ResourceController@getVideo');
+Route::get('resources/videos/{class}/{instructor}/{file}', 'ResourceController@getVideo');
 
 Route::resource('videos', 'VideosController');
 

@@ -9,12 +9,13 @@
 		<ul>
 			@foreach ($videos as $video) 
 				<li>
-					<a href="{{route('videos.show', $video->slug) }}">	
+					<!--<a href="{{route('videos.show', $video->slug) }}">	-->
 							<video width="320" height="240" controls>
-									<source src="resources/videos/{{$video['vid_name']}}" type="video/mp4">
+									<source src="resources/videos/{{$video['class']}}/{{$video['instructor']}}/{{$video['vid_name']}}.mp4" type="video/mp4">
 									Your browser does not support the video tag.
 							</video>
-					</a>
+							echo "resources/videos/{{$video['class']}}/{{$video['instructor']}}/{{$video['vid_name']}}";
+					<!-- </a> -->
 				</li>
 			@endforeach
 		</ul>

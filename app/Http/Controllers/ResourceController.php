@@ -12,9 +12,9 @@ class ResourceController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function getVideo($filename){
+	public function getVideo($classname, $instructorname, $filename){
 
-		$path = \Config::get('res.up-videos').'/'.$filename;
+		$path = \Config::get('res.up-videos').'/'.$classname.'/'.$instructorname.'/'.$filename;
 
 		$file = new \Symfony\Component\HttpFoundation\File\File($path);
 
