@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -12,21 +11,14 @@
 */
 // Provide controller methods with object instead of ID
 Route::model('videos', 'Video');
-
 Route::get('/', 'WelcomeController@index');
-
 Route::get('home', 'HomeController@index');
-
 Route::get('resources/videos/{class}/{instructor}/{file}', 'ResourceController@getVideo');
-
 Route::resource('videos', 'VideosController');
-
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
-
 Route::bind('videos', function($value, $route){
 		return App\Video::whereSlug($value)->first();
 	});
-
