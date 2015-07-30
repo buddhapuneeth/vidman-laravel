@@ -11,6 +11,11 @@ use Illuminate\Http\Request;
 
 class VideosController extends Controller {
 
+	protected $rules = array(
+			'title' => 'required',
+			'instructor' => 'required',
+			
+		);
 	/**
 	 * Display a listing of the resource.
 	 *

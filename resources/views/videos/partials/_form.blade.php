@@ -44,11 +44,8 @@
 
         <div class = "col-xs-6">
            
-            <div id = "videoholder" class="panel panel-default" style="overflow:auto;">
-                <div class="panel-heading">Video File</div>
-                <div id="videobox"></div>
-            </div>
-            <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
+            
+            <div id="videoplayer"></div>
             <script type="text/javascript">
 
                 function renderVideo(file) {
@@ -59,8 +56,7 @@
                   // inject an image with the src url
                   reader.onload = function(event) {
                     the_url = event.target.result
-                    $('#videobox')//.html('<video controls><source src="' + the_url + '" type="video/mp4"> </video>');
-                   .html('<div data-swf="//releases.flowplayer.org/6.0.3/flowplayer.swf" class="flowplayer no-toggle play-button color-light" data-ratio="0.416"> <video> <source type="video/mp4" src="'+ the_url +'"></video> </div>');
+                    $('#videoplayer').html('<div class="flowplayer"><video ><source src="' + the_url + '.webm" type="video/webm"><source src="' + the_url + '" type="video/mp4"> </video></div>');
                     
                     
 
