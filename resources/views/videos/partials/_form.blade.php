@@ -10,7 +10,7 @@
                         </legend>
                         <div class="form-group">
                             {!! Form::label('Video:', null, array('class' => 'col-lg-2 control-label')) !!}
-                            {!! Form::file('video', null, array('id'=>'lvideo','class'=>'btn btn-primary', 'required' => ''))   !!}
+                            {!! Form::file('video',  array('id'=>'video','class'=>'btn btn-default'))   !!}
                         </div>
 
                         <div class="form-group">
@@ -19,16 +19,16 @@
                         </div>
                         <div class="form-group">
                             {!! Form::label('instructor', 'Instructor:', array('class' => 'col-lg-2 control-label')) !!}
-                            {!! Form::text('instructorlast', null, array('class'=>'col-lg-4', 'placeholder'=>'last name', 'required' => '')) !!}
-                            {!! Form::text('instructorfirst', null, array('class'=>'col-lg-4', 'placeholder'=>'first name', 'required' => '')) !!}
+                            {!! Form::text('instructorlast', null, array('class'=>'col-lg-4', 'placeholder'=>'last name')) !!}
+                            {!! Form::text('instructorfirst', null, array('class'=>'col-lg-4', 'placeholder'=>'first name')) !!}
                         </div>
                         <div class="form-group">
                             {!! Form::label('class', 'Class:', array('class' => 'col-lg-2 control-label')) !!}
-                            {!! Form::text('class', '', array('class'=>'col-lg-8', 'placeholder' => 'MAT267, MAT265, etc', 'required' => '')) !!}
+                            {!! Form::text('class', '', array('class'=>'col-lg-8', 'placeholder' => 'MAT267, MAT265, etc')) !!}
                         </div>
                         <div class="form-group">
                             {!! Form::label('topic', 'Topic:', array('class' => 'col-lg-2 control-label')) !!}
-                            {!! Form::text('topic', null, array('class'=>'col-lg-8', 'placeholder' => 'Limits, Derivatives, etc', 'required' => '')) !!}
+                            {!! Form::text('topic', null, array('class'=>'col-lg-8', 'placeholder' => 'Limits, Derivatives, etc')) !!}
                         </div>
                         <div class="form-group">
                             {!! Form::label('semester', 'Semester', array('class' => 'col-lg-2 control-label')) !!}
@@ -37,7 +37,7 @@
                         </div>
                         <div class="form-group">
                             {!! Form::label('tags', 'Tags:', array('class' => 'col-lg-2 control-label')) !!}
-                            {!! Form::text('topic', null, array('class'=>'col-lg-8', 'placeholder' => 'Optional comma seperated words - "integrals, line" ', 'required' => '')) !!}
+                            {!! Form::text('tags', null, array('class'=>'col-lg-8', 'placeholder' => 'Optional comma seperated words - "integrals, line" ')) !!}
                         </div>
                         <div class="form-group">
                             {!! Form::submit($submit_text, ['class'=>'cols-lg-2 col-lg-offset-2 btn btn-primary']) !!}
@@ -49,7 +49,7 @@
 
     
 
-        <div class = "col-xs-6">
+        <div class = "col-xs-6" style="text-align:center;">
            
             
             <div id="videoplayer" ></div>

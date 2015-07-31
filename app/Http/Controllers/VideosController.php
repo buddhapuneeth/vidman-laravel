@@ -71,7 +71,7 @@ class VideosController extends Controller {
 					'topic' => $request->input('topic'),
 					'class' => $request->input('class'),
 					'instructor' => $request->input('instructor'),
-					'vid_url' => $request->input('title'). '.' . $request->file('lvideo')->getClientOriginalExtension(),
+					'vid_url' => $request->input('title'). '.' . $request->file('video')->getClientOriginalExtension(),
 					'title' => $request->input('title'),
 					'isVerified' => FALSE,
 					'created_at' => date("Y-m-d"),
@@ -87,7 +87,7 @@ class VideosController extends Controller {
 		$newvid->save();
  		print_r($newvid);
 
- 		$request->file('lvideo')->move(
+ 		$request->file('video')->move(
         base_path() . '/resources/uploaded_videos/' . $request->input('class') . '/' . $instructor . '/', $newvid->vid_url
         );
 
