@@ -13,9 +13,25 @@ class VideosController extends Controller {
 
 	protected $rules = array(
 			'title' => 'required',
-			'instructor' => 'required',
-			
+			'instructorlast' => 'required',
+			'instructorfirst' => 'required',
+			'sem' => 'required',
+			'topic' => 'required',
+			'class' => 'required',
+			'year' => 'required',
+			'video' => 'required'
 		);
+
+	protected $messages = array(
+			'title.required' => 'Error: Title is a mandatory field',
+			'instructorlast.required' => 'Error: Instructor Last Name is a mandatory field',
+			'instructorfirst.required' => 'Error: Instructor First Name is a mandatory field',
+			'sem.required' => 'Error: Semester is a mandatory field', 
+			'topic.required'=> 'Error: Topic is a mandatory field',
+			'class.required' => 'Error: Topic is a mandatory field',
+			'year.required' => 'Error: Semester/Year is a mandatory field',
+			'video.required' => 'Error: Please choose a Video to upload'
+ 		);
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -45,14 +61,13 @@ class VideosController extends Controller {
 	public function store(Request $request)
 	{
 			
-			//print_r($request->input('vid_name'));
+			//Input Validation
+			$this->validate($request, $this->rules, $this->messages);
 			
-			$vid_slug = $request->input('class') . '-' .$request->input('title');
-			
-
-			$newvid = new Video(array(
-					'vid_name' => $request->input('vid_name'),
-					'slug' => $vid_slug,
+			$instructor =  $request->input('instructorlast'). "" .substr($request->input('instructorfirst'), 0, 1). "" . substr($request->input('instructorfirst'), -1);
+			$vid_name = $request->input('title') .'-'. $instructor .'-'. $request->input('class');
+			$video_req = array(
+					'slug' => $vid_name,
 					'topic' => $request->input('topic'),
 					'class' => $request->input('class'),
 					'instructor' => $request->input('instructor'),
@@ -61,18 +76,23 @@ class VideosController extends Controller {
 					'isVerified' => FALSE,
 					'created_at' => date("Y-m-d"),
 					'created_by' => 'ravi',//Cas::getCurrentUser(),
-					'tags' => '',
+					'tags' => $request->input('tags'),
 					'semester' => $request->input('sem') . $request->input('year')
-				)); 
+				);
+
+
+		
+		$newvid = new Video($video_req);
 			
 		$newvid->save();
  		print_r($newvid);
 
  		$request->file('lvideo')->move(
-        base_path() . '/resources/uploaded_videos/' . $request->input('class') . '/' . $request->input('instructor') . '/', $newvid->vid_url
+        base_path() . '/resources/uploaded_videos/' . $request->input('class') . '/' . $instructor . '/', $newvid->vid_url
         );
 
-		//return Redirect::route('videos.index')->with('message', 'Video Uploaded');
+		
+		return Redirect::route('videos.index')->with('message', 'Video Uploaded');
 	}
 
 	/**
