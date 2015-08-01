@@ -63,14 +63,15 @@ class VideosController extends Controller {
 			
 			//Input Validation
 			$this->validate($request, $this->rules, $this->messages);
-			
+
+			$instructorname = $request->input('instructorlast'). " "  . $request->input('instructorfirst');
 			$instructor =  $request->input('instructorlast'). "" .substr($request->input('instructorfirst'), 0, 1). "" . substr($request->input('instructorfirst'), -1);
 			$vid_name = $request->input('title') .'-'. $instructor .'-'. $request->input('class');
 			$video_req = array(
 					'slug' => $vid_name,
 					'topic' => $request->input('topic'),
 					'class' => $request->input('class'),
-					'instructor' => $request->input('instructor'),
+					'instructor' => $instructorname,
 					'vid_url' => $request->input('title'). '.' . $request->file('video')->getClientOriginalExtension(),
 					'title' => $request->input('title'),
 					'isVerified' => FALSE,

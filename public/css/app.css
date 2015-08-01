@@ -6231,11 +6231,11 @@ label,
 .checkbox label {
   font-weight: 300;
 }
-/* custom player skin */
-.flowplayer { width: 80%; background-color: #222; background-size: cover; max-width: 800px; }
-.flowplayer .fp-controls { background-color: rgba(0, 0, 0, 0.4)}
-.flowplayer .fp-timeline { background-color: rgba(0, 0, 0, 0.5)}
-.flowplayer .fp-progress { background-color: rgba(219, 0, 0, 1)}
-.flowplayer .fp-buffer { background-color: rgba(249, 249, 249, 1)}
-.flowplayer { background-image: url(https://farm4.staticflickr.com/3169/2972817861_73ae53c2e5_b.jpg)}
+
+.upload-btn{
+
+  position: absolute;
+  right: 30px;
+  top: 20px;
+}
 
