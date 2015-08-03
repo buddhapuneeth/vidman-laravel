@@ -27,7 +27,7 @@
 
 </head>
 <body>
-	<div name = "body", class = "container">
+	<div name = "body" class = "container">
 
     	<nav class="navbar navbar-default">
       <div class="container-fluid">
@@ -99,7 +99,10 @@
     @endif
       
 
-    @yield('content')
+
+    
+      @yield('content')
+
 
   </div>
 	<!-- Scripts -->

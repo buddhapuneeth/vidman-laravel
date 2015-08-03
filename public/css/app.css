@@ -6232,13 +6232,6 @@ label,
   font-weight: 300;
 }
 
-.upload-btn{
-
-  position: absolute;
-  right: 30px;
-  top: 20px;
-}
-
 #videoplayer{
   margin:auto;
   max-width: 100%;
