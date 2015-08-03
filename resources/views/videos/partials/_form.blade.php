@@ -1,13 +1,13 @@
 
-<div class = "container" >
-    <div class="row">
+<div class = "container" style="padding:10px;">
+    <div class="row" style="padding:10px">
         <div calss="col-xs-12" style="margin:auto;" >
             <div class="panel panel-default" style="max-width:100%;padding-left:10px; margin:auto; width:750px;">
         <center><div id="videoplayer" style="max-width:100%; height:auto; padding:10px;"></div></center>
     </div>
             </div>
             <div calss="col-xs-12" >
-            <div class="panel panel-default" style="max-width:100%; width:750px; padding-left:10px; margin:auto;">
+            <div class="panel panel-default" style="max-width:100%; width:750px; padding:10px; margin:auto;">
                 <div class="panel-body">
                     <fieldset>
                         <legend>
