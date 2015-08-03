@@ -1,6 +1,6 @@
 
 <div class = "container">
-        <div id="videoplayer" ></div>
+        <div id="videoplayer" style="max-width:90%; height:auto;"></div>
             <div class="panel panel-default" style="width:80%">
                 <div class="panel-body">
                     <fieldset>

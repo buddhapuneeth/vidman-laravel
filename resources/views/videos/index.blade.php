@@ -17,14 +17,14 @@
 					<!--<a href="{{route('videos.show', $video->slug) }}">	-->
 					<span class="badge">{{$video['class']}}</span>
 					<div class="row">
-						<div class="col-xs-4">
-							<div class="well" >
+						<div class="col-xs-4 video-wrapper">
+
 
 							<video width="320" height="240" controls>
 									<source src="/resources/videos/{{$video['class']}}/{{$video['instructor']}}/{{$video['vid_url']}}" type="video/mp4">
 									Your browser does not support the video tag.
 							</video>
-						</div>
+
 						</div>
 						<div class="cols-xs-8" style="position:relative; overflow:auto;">
 							<a href="{{ URL::route('videos.show', $video['slug']) }}"><h4 >{{ucwords($video['title'])}}</h4></a>
