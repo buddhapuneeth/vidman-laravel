@@ -29,7 +29,7 @@
 
 							<a href="{{ URL::route('videos.show', $video['slug']) }}">
 							<video width="320" height="240" controls>
-									<source src="/resources/videos/{{$video['class']}}/{{$video['instructor']}}/{{$video['vid_url']}}" type="video/mp4">
+									<source src="/resources/videos/{{$video['vid_url']}}" type="video/mp4">
 									Your browser does not support the video tag.
 							</video>
 						</a>
@@ -47,7 +47,7 @@
 								@endif
 							</p></strong>
 							
-								<div class="well well-sm"><p class="text-primary"><strong>https://miro.asu.edu/vidman/resources/videos/{{$video['class']}}/{{$video['instructor']}}/{{$video['vid_url']}}<strong></p></div>
+								<div class="well well-sm"><p class="text-primary"><strong>https://miro.asu.edu/vidman/resources/videos/{{$video['vid_url']}}<strong></p></div>
 							
 						</div>
 					</div>

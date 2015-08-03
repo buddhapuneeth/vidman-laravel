@@ -66,13 +66,13 @@ class VideosController extends Controller {
 
 			$instructorname = $request->input('instructorlast'). " "  . $request->input('instructorfirst');
 			$instructor =  $request->input('instructorlast'). "" .substr($request->input('instructorfirst'), 0, 1). "" . substr($request->input('instructorfirst'), -1);
-			$vid_name = $request->input('title') .'-'. $instructor .'-'. $request->input('class');
+			$vid_name = preg_replace('/\s+/', '', $request->input('title')) .'-'. $instructor .'-'. $request->input('class');
 			$video_req = array(
 					'slug' => $vid_name,
 					'topic' => $request->input('topic'),
 					'class' => $request->input('class'),
 					'instructor' => $instructorname,
-					'vid_url' => $request->input('title'). '.' . $request->file('video')->getClientOriginalExtension(),
+					'vid_url' => $request->input('class').'/'. $instructor . '/'.preg_replace('/\s+/', '', $request->input('title')). '.' . $request->file('video')->getClientOriginalExtension(),
 					'title' => $request->input('title'),
 					'isVerified' => FALSE,
 					'created_at' => date("Y-m-d"),
@@ -89,7 +89,7 @@ class VideosController extends Controller {
  		print_r($newvid);
 
  		$request->file('video')->move(
-        base_path() . '/resources/uploaded_videos/' . $request->input('class') . '/' . $instructor . '/', $newvid->vid_url
+        base_path() . '/resources/uploaded_videos/' . $request->input('class') . '/' . $instructor . '/', preg_replace('/\s+/', '', $newvid->title)
         );
 
 		
