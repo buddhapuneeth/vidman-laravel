@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-<div class="container" style="position:relative; overflow:auto;">
+<div class="container" style="position:relative;">
 <h3> List of videos</h3>
 	
 	@if ( !$videos->count() )

@@ -1,8 +1,7 @@
 
 <div class = "container">
-    <div class = "row">
-        <div class = "col-xs-6">
-            <div class="panel panel-default">
+        <div id="videoplayer" ></div>
+            <div class="panel panel-default" style="width:80%">
                 <div class="panel-body">
                     <fieldset>
                         <legend>
@@ -45,14 +44,7 @@
                     </fieldset>
                 </div>
             </div>
-        </div>
 
-    
-
-        <div class = "col-xs-6" style="text-align:center;">
-           
-            
-            <div id="videoplayer" ></div>
             
             <script type="text/javascript">
 
@@ -79,6 +71,5 @@
                     renderVideo(this.files[0])
                 });
             </script>
-        </div>
-    </div>
+
 </div>
