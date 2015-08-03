@@ -28,7 +28,7 @@
 						</div>
 						<div class="cols-xs-8" style="position:relative; overflow:auto;">
 							<a href="{{ URL::route('videos.show', $video['slug']) }}"><h4 >{{ucwords($video['title'])}}</h4></a>
-							<p> Topic: {{$video['topic']}} <br/>
+							<strong><p> Topic: {{$video['topic']}} <br/>
 								Instructor: {{ $video['instructor'] }} <br/>
 								@if ( !$video['updated_at'] )
 									Created Date: {{ $video['created_at'] }}
@@ -36,7 +36,7 @@
 									Updated Last: {{ $video['updated_at'] }}
 
 								@endif
-							</p>
+							</p></strong>
 							
 								<div class="well well-sm"><p class="text-primary"><strong>https://miro.asu.edu/vidman/resources/videos/{{$video['class']}}/{{$video['instructor']}}/{{$video['vid_url']}}<strong></p></div>
 							
