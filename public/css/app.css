@@ -6240,14 +6240,18 @@ label,
 }
 
 #videoplayer{
+  margin:auto;
   max-width: 100%;
   height: auto;
 }
 video{
   max-width: 100%;
-  height: auto !important;  
+  height: auto !important;
+  display: block;
+  object-fit: fill;  
 }
-.video-wrappe{
+.video-wrapper{
+  margin:auto;
   display:block;
   overflow:auto;
   /*padding-bottom: 56.25%; /* 16:9 */

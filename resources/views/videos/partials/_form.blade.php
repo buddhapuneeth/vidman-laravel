@@ -1,7 +1,13 @@
 
-<div class = "container">
-        <div id="videoplayer" style="max-width:90%; height:auto;"></div>
-            <div class="panel panel-default" style="width:80%">
+<div class = "container" >
+    <div class="row">
+        <div calss="col-xs-12" style="margin:auto;" >
+            <div class="panel panel-default" style="max-width:100%;padding-left:10px; margin:auto; width:750px;">
+        <center><div id="videoplayer" style="max-width:100%; height:auto; padding:10px;"></div></center>
+    </div>
+            </div>
+            <div calss="col-xs-12" >
+            <div class="panel panel-default" style="max-width:100%; width:750px; padding-left:10px; margin:auto;">
                 <div class="panel-body">
                     <fieldset>
                         <legend>
@@ -39,11 +45,12 @@
                             {!! Form::text('tags', null, array('class'=>'col-lg-8', 'placeholder' => 'Optional comma seperated words - "integrals, line" ')) !!}
                         </div>
                         <div class="form-group">
-                            {!! Form::submit($submit_text, ['class'=>'cols-lg-2 col-lg-offset-2 btn btn-primary']) !!}
+                            {!! Form::submit($submit_text, ['class'=>'cols-lg-4 col-lg-offset-2 btn btn-primary']) !!}
                         </div>
                     </fieldset>
                 </div>
             </div>
+        </div>
 
             
             <script type="text/javascript">
