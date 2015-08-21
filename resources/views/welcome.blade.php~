@@ -38,7 +38,7 @@
 		</style>
 	</head>
 	<body>
-	{{ Cas::authenticate() }}
+	{!! Cas::authenticate() !!}
 
 	
 		<div class="container">

@@ -1,0 +1,5 @@
+<?php
+
+ Cas::logout();
+
+?>

@@ -12,7 +12,7 @@
             <div class="panel panel-default" style="max-width:100%;padding-left:10px; margin:auto; width:750px;">
         <center><div id="videoplayer" style="max-width:100%; height:auto; padding:10px;">
 	<video width="720px" height="auto" controls>
-									<source src="{{video_base_path}}/{{$video['vid_url']}}" type="video/mp4">
+									<source src="/videos/vidman/{{$video['vid_url']}}" type="video/mp4">
 									Your browser does not support the video tag.
 							</video>
 	</div>

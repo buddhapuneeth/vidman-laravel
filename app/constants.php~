@@ -1,0 +1,6 @@
+<?php
+
+define('video_base_path','/videos/vidman' );
+define('video_absolute_path','https://miro.asu.edu/videos/vidman' )
+
+?>
