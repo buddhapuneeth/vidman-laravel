@@ -78,11 +78,13 @@
               </ul>
             </li>      			#########-->
           </ul>
-          <form class="navbar-form navbar-left" role="search">
+          
+	  {!! Form::open(array('action' => 'VideosController@search', 'class' => 'navbar-form navbar-left', 'role' => 'search')) !!}
+		
             <div class="form-group">
-              <input class="form-control" placeholder="Search" type="text">
+		{!! Form::text('search', null, array('class'=>'form-control', 'placeholder' => 'Search')) !!}
             </div>
-            <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+		{!! Form::button('<span class="glyphicon glyphicon-search"></span>', array('class'=>'btn btn-default', 'type'=>'submit')) !!}
           </form>
 
           <ul class="nav navbar-nav navbar-right" >

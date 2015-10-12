@@ -15,11 +15,12 @@ Route::get('/', 'WelcomeController@index');
 Route::get('home', 'HomeController@index');
 Route::get('/logout', 'VideosController@logout');
 Route::get('resources/videos/{class}/{instructor}/{file}', 'ResourceController@getVideo');
+Route::post('/videos/search/{search}','VideosController@search');
 Route::resource('videos', 'VideosController');
-Route::controllers([
+/*Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
-]);
+]);*/
 Route::bind('videos', function($value, $route){
 		return App\Video::whereSlug($value)->first();
 	});

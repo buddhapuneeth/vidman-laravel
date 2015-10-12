@@ -9,7 +9,10 @@
             'files' => true)
             ) 
     !!}
-                
+                <?php
+	$userRole = AuthHelper::authenticate();
+	$user = Cas::user();
+?>
            <!-- @include('videos/partials/_form', ['submit_text' => 'Upload'])  -->
 	<div class="hidden">{{AuthHelper::authenticate()}}</div>
     <div class = "container" style="padding:10px;">
@@ -49,6 +52,7 @@
                         <div class="form-group", style='max-width:100%;'>
                             {!! Form::label('class', 'Class:', array('class' => 'col-lg-2 control-label')) !!}
                             {!! Form::text('class', null, array('class'=>'col-lg-8', 'style'=>'max-width:100%;', 'placeholder' => 'MAT267, MAT265, etc')) !!}
+			     {!! Form::text('user', $user, array('class'=>'hidden')) !!}
                         </div>
                         <div class="form-group", style='max-width:100%;'>
                             {!! Form::label('topic', 'Topic:', array('class' => 'col-lg-2 control-label')) !!}

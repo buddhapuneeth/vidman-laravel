@@ -57,6 +57,17 @@ class VideosController extends Controller {
 		return view('videos.create');
 	}
 
+
+	public function search(Request $request){
+		$squery = '%'.(string)$request->input('search'). '%';
+		print_r($squery);
+		$videos = Video::where('instructor','like', $squery)->orWhere('title', 'like', $squery)->orderBy('id', 'DESC')->get();
+	print_r("size of videos is ".sizeof($videos));
+	foreach($videos as $vid)	{	
+	print_r($vid->title);}
+	return view('videos.index', compact('videos'));
+	}
+
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -82,7 +93,7 @@ class VideosController extends Controller {
 					'title' => $request->input('title'),
 					'isVerified' => FALSE,
 					'created_at' => date("Y-m-d"),
-					'created_by' => 'ravi',//Cas::getCurrentUser(),
+					'created_by' => $request->input('user'),
 					'tags' => $request->input('tags'),
 					'semester' => $request->input('semester'),
 					'year'=>  $request->input('year'),
@@ -112,6 +123,7 @@ class VideosController extends Controller {
 	 */
 	public function show($video)
 	{
+
 		return view('videos.show', compact('video'));
 	}
 
