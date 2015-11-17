@@ -22,9 +22,9 @@
       <td><a href="#" class="btn btn-primary btn-xs">Edit</a></td>
       <td><a href="#" class="btn btn-danger btn-xs">Delete</a></td>
     </tr>
-    @foreach($roles as $role)
+    @foreach($roles as $index => $role)
     <tr>
-      <td>{{ $role->id }}</td>
+      <td>{{ $index+1 }}</td>
       <td>{{ $role->user }}</td>
       <td>{{ $role->role }}</td>
       <td><a href="{{ action('RolesController@edit', $role->id) }}" class="btn btn-primary btn-xs">Edit</a></td>
