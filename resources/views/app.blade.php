@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="csrf-token" content="{{ csrf_token() }}" />
 	<title>Vidman</title>
 
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
@@ -21,11 +22,11 @@
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-	
+
 
 	<script src="//releases.flowplayer.org/6.0.3/flowplayer.min.js"></script>
 	<!--  Favicon    -->
-	
+
 	<link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
 	<link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png">
 	<link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png">
@@ -42,11 +43,11 @@
 	<link rel="manifest" href="/favicon/manifest.json">
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-	<meta name="theme-color" content="#ffffff">	
+	<meta name="theme-color" content="#ffffff">
+
 	
-	<!------------------------------------------------------------------------->
 </head>
-<body  style="background-color:#EEE">
+<body  style="background-color:#EEE; position:;">
 	<div name = "body" class = "container" style="height:100%; position:relative; min-height:100%;">
     	<nav class="navbar navbar-default navbar-fixed-top">
       <div class="container-fluid">
@@ -57,30 +58,17 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/index.php/videos"><img src="https://vidman.asu.edu/som_sslogo.png" alt="ASU"></a>
+          <a class="navbar-brand" href="/vidman/index.php/videos"><img src="https://vidman.asu.edu/som_sslogo.png" alt="ASU"></a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-         
-		<li class="active"><a href="/index.php/videos" style="font-style:Symbol; font-weight:bold; color:#903; outline:none;">Vidman - Video Management tool at SoMSS</a></li>
-         <!--   <li><a href="#">Link</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-                <li class="divider"></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>      			#########-->
+
+		<li class="active"><a href="/vidman/index.php/videos" style="font-style:Symbol; font-weight:bold; color:#903; outline:none;">Vidman - Video Management tool at SoMSS</a></li>
           </ul>
-          
+
 	  {!! Form::open(array('action' => 'VideosController@search', 'class' => 'navbar-form navbar-left', 'role' => 'search')) !!}
-		
+
             <div class="form-group">
 		{!! Form::text('search', null, array('class'=>'form-control', 'placeholder' => 'Search')) !!}
             </div>
@@ -91,10 +79,17 @@
 	<div class="hidden">{{$userRole = AuthHelper::authenticate()}}</div>
           	@if (Cas::user())
 			@if($userRole == 'admin' || $userRole == 'faculty')
-				<li>{!! link_to_route('videos.create', 'Upload Video', null, array('style'=>'font-weight:bold; color:#2196F3; outline:none;')) !!}</li>
+				<li>{!! link_to_route('videos.create', 'Upload Video', null, array('style'=>'font-weight:bold; color:#2196f3; outline:none;')) !!}</li>
+        @if($userRole == 'admin')
+          <li>{!! link_to_route('roles.index', 'Admin', null, array('style'=>'font-weight:bold; outline:none;')) !!}</li>
+          @endif
 			@endif
-    			<li><a href="#" style="font-weight:bold;">{{Cas::user()}}</a></li>
-    			<li><a href="{{action('VideosController@logout')}}" style="font-weight:bold;">logout</a></li>
+          <li class="dropdown" style="font-weight:bold;">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{Cas::user()}} <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="{{action('VideosController@logout')}}" style="font-weight:bold;">logout</a></li>
+            </ul>
+          </li>
     		@endif
           </ul>
         </div>
@@ -118,31 +113,32 @@
         <strong>{{ Session::get('message') }}</strong>.
       </div>
     @endif
-</div>      
+</div>
 
 
-    
+
       @yield('content')
 
-		  
+
 	<div class="container footer" style="bottom:0; display:block; border:none; background-color:#F9F9F9;">
-<div class="well">		
+<div class="well">
 	<div class="rows">
 		<div class="col-sm-4" style="text-align:left;"><strong><p>An  academic unit of</p><p class="text-primary"><a href="http://clas.asu.edu/"><h5>College of Liberal Arts and Sciences</h5></a></p></strong></div>
 		<div class="col-sm-4" style="text-align:left;"><center><img src="https://vidman.asu.edu/asu-logo.png" style="width:100px; height:auto;" /></center></div>
 		<div class="col-sm-4" style="text-align:right;"><strong><p class="text-primary"><h6><a href="https://math.asu.edu/">School of Mathematical and Statistical Sciences</a></h6></p>
-			<p>Wexlar Hall | P.O. Box 871804, Tempe, AZ 85287-1804<br/>Phone: 480-965-7195 | Fax: 480-965-5569 | <a href="https://math.asu.edu/contact-us/contact-us">Contact Us</a></p></strong>		
+			<p>Wexlar Hall | P.O. Box 871804, Tempe, AZ 85287-1804<br/>Phone: 480-965-7195 | Fax: 480-965-5569 | <a href="https://math.asu.edu/contact-us/contact-us">Contact Us</a></p></strong>
 		</div>
             </div>
-  	</div>   
+  	</div>
             <br/>
-            <br/>	
+            <br/>
 	</div>
 
 </div>
-  
+
 	<!-- Scripts -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	@yield('modals')
 </body>
 </html>

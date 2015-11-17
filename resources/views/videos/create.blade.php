@@ -1,13 +1,13 @@
 @extends('app')
- 
+
 @section('content')
 
     {!! Form::model(new App\Video, array(
-            'route' => 'videos.store', 
-            'class' => 'form-horizontal', 
-            'novalidate' => 'novalidate', 
+            'route' => 'videos.store',
+            'class' => 'form-horizontal',
+            'novalidate' => 'novalidate',
             'files' => true)
-            ) 
+            )
     !!}
                 <?php
 	$userRole = AuthHelper::authenticate();
@@ -72,31 +72,31 @@
                             {!! Form::text('tags', null, array('class'=>'col-lg-8', 'style'=>'max-width:100%;', 'placeholder' => 'Optional comma seperated words - "integrals, line" ')) !!}
                         </div>
                         <div class="form-group", style='max-width:100%;'>
-                            {!! Form::submit('Apply', ['class'=>'cols-lg-4 col-lg-offset-2 btn btn-primary']) !!}
+                            {!! Form::submit('Upload', ['class'=>'cols-lg-4 col-lg-offset-2 btn btn-primary']) !!}
                         </div>
                     </fieldset>
                 </div>
             </div>
         </div>
 
-            
+
             <script type="text/javascript">
-		
+
 		//-------------------------------------------------------------------------------------------------------
 
-			
+
   var reader;
   var progress = document.getElementById('progress-bar');
 
   function renderVideo(file) {
                   // generate a new FileReader object
-              
+
                   // inject an image with the src url
                   reader.onload = function(event) {
                     the_url = event.target.result;
                     $('#videoplayer').html('<video controls preload="metadata"><source src="' + the_url + '" type="video/mp4"> </video>');
                   }
-                 
+
                   // when the file is read it triggers the onload event above.
                   reader.readAsDataURL(file);
                 }
@@ -133,7 +133,7 @@
 	   	 document.getElementById('panel-heading').innerHTML = 'Loading Complete. Please process with Upload';
 		}
       }
-	
+
     }
   }
 	function changeLoadingText(){
@@ -171,12 +171,12 @@
   document.getElementById('video').addEventListener('change', handleFileSelect, false);
 
 
-		//-------------------------------------------------------------------------------------------------------                 
+		//-------------------------------------------------------------------------------------------------------
                 // handle input changes
 /*
                 $("#video").change(function() {
                     console.log(this.files)
-                    
+
                     // grab the first image in the FileList object and pass it to the function
                     handleFileSelect()
                 });
@@ -187,7 +187,7 @@
 
 
 
-        
-    
+
+
     {!! Form::close() !!}
 @endsection

@@ -185,7 +185,9 @@ class VideosController extends Controller {
 
 		if($vidupdated){
 		$msg = "File changed";
-		unlink(video_base_path.'/'.$old_video);	
+		if(file_exists(video_base_path.'/'.$old_video)){
+			unlink(video_base_path.'/'.$old_video);
+		}	
 		$request->file('video')->move(
         base_path() . '/resources/uploaded_videos/' . $request->input('class') . '/' . $instructor . '/', $vid_name
         );

@@ -38,7 +38,7 @@
 	<div class="panel-body">
 	<ul class="nav nav-tabs">
   <li class="active"><a href="#about" data-toggle="tab" aria-expanded="true" style="outline:none;">About</a></li>
-  <li class=""><a href="#comments" data-toggle="tab" aria-expanded="false"  style="outline:none;">Comments</a></li>
+  <!-- <li class=""><a href="#comments" data-toggle="tab" aria-expanded="false"  style="outline:none;">Comments</a></li> -->
 </ul>
 
         <div id="myTabContent" class="tab-content" >

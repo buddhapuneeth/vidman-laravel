@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
- 
+
 
 <div class="container" style="position:relative; background-color:#fff;">
 
@@ -9,7 +9,7 @@
 
 
 <!--<div class="container videos-results">-->
-	
+
 	@if ( !$videos->count() )
 	        You have no videos
 	@else
@@ -18,8 +18,8 @@
 
 
 
-		@foreach ($videos as $video) 
-				
+		@foreach ($videos as $video)
+
 					<li class="list-group-item">
 					<!--<a href="{{route('videos.show', $video->slug) }}">	-->
 					<span class="badge">{{$video['class']}}</span>
@@ -45,15 +45,15 @@
 
 								@endif
 							</p></strong>
-							
+
 								<div class="well well-sm"><p class="text-primary"><strong>{{video_absolute_path}}/{{$video['vid_url']}}<strong></p></div>
-							
+
 						</div>
 					</div>
-							
+
 					<!-- </a> -->
 				</li>
-			
+
 		@endforeach
 
 
