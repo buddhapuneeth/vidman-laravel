@@ -51,7 +51,8 @@
                         </div>
                         <div class="form-group", style='max-width:100%;'>
                             {!! Form::label('class', 'Class:', array('class' => 'col-lg-2 control-label')) !!}
-                            {!! Form::text('class', null, array('class'=>'col-lg-8', 'style'=>'max-width:100%;', 'placeholder' => 'MAT267, MAT265, etc')) !!}
+                            {!! Form::select('sub', array('MAT' => 'MAT', 'APM' => 'APM', 'MTE' => 'MTE', 'STA' => 'STA'), 'MAT', array('class' => 'col-lg-2')) !!}
+                            {!! Form::number('num', null, array('class'=>'col-lg-6', 'style'=>'max-width:70%;','min'=>'100', 'max'=>'999')) !!}
 			     {!! Form::text('user', $user, array('class'=>'hidden')) !!}
                         </div>
                         <div class="form-group", style='max-width:100%;'>
@@ -60,8 +61,8 @@
                         </div>
                         <div class="form-group", style='max-width:100%;'>
                             {!! Form::label('semester', 'Semester', array('class' => 'col-lg-2 control-label')) !!}
-                            {!! Form::select('semester', array('Fall' => 'Fall', 'Spring' => 'Spring', 'Summer' => 'Summer'), null, array('class' => 'col-lg-3')) !!}
-                            {!! Form::select('year', array(2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030), null, array('class' => 'col-lg-3')) !!}
+                            {!! Form::select('semester', array('Fall' => 'Fall', 'Spring' => 'Spring', 'Summer' => 'Summer'), 'Spring', array('class' => 'col-lg-3')) !!}
+                            {!! Form::select('year', array(2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030), 1, array('class' => 'col-lg-3')) !!}
                         </div>
 			<div class="form-group", style='max-width:100%;'>
                             {!! Form::label('desc', 'Description:', array('class' => 'col-lg-2 control-label')) !!}

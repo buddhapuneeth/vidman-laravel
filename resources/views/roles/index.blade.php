@@ -30,7 +30,7 @@
       <td><a href="{{ action('RolesController@edit', $role->id) }}" class="btn btn-primary btn-xs">Edit</a></td>
       <td>{!! Form::model($role, ['method'=>'DELETE', 'action'=>['RolesController@destroy', $role->id]]) !!}
       	{!! Form::hidden('route', 'delete') !!}
-      <input class="btn btn-danger btn-xs" type="submit" name="submit" value="DELETE" onclick="return confirm('Do you wish to update details?');return false;" />
+      <input class="btn btn-danger btn-xs" type="submit" name="submit" value="DELETE" onclick="return confirm('Do you wish to delete this user?');return false;" />
       {!! Form::close() !!}
       </td>
     </tr>

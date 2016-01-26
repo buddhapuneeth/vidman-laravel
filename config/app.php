@@ -13,7 +13,7 @@ return [
 	|
 	*/
 
-	'debug' => false,
+	'debug' => true,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -147,7 +147,7 @@ return [
 		'Collective\Html\HtmlServiceProvider',
 		'Xavrsl\Cas\CasServiceProvider',
 		'App\Providers\HelperServiceProvider',
-		
+
 
 	],
 

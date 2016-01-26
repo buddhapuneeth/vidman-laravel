@@ -6,7 +6,7 @@
 	$user = Cas::user();
 ?>
 
- 
+
     <div class="row" style="padding:10px; padding-top:70px;">
         <div calss="col-xs-12" style="margin:auto;" >
             <div class="panel panel-default" style="max-width:100%;padding-left:10px; margin:auto; width:750px;">
@@ -18,7 +18,7 @@
 	</div>
     </div>
 </div>
-	
+
 
 
 <div class="container-fluid" style="padding-top:10px;">
@@ -28,12 +28,21 @@
 			@endif
 		</div></center>
 
+		<center><div style="display:block; padding-bottom:10px; width:750px; max-width:100%;">
+				@if($userRole == 'admin')
+					{!! Form::model($video, ['method'=>'DELETE', 'action'=>['VideosController@destroy', $video->slug]]) !!}
+						{!! Form::hidden('route', 'delete') !!}
+						<input class="btn btn-default btn-block" type="submit" name="submit" style="outline:none; font-weight:bold; color:#990033" value="DELETE" onclick="return confirm('Do you wish to delete this video?');return false;" />
+					{!! Form::close() !!}
+				@endif
+			</div></center>
+
 <div class="panel panel-default" style="max-width:100%; padding-left:30px; padding:0px; margin:auto; width:750px;">
-		
+
 	<div class="panel-heading" style="position:relative;">
-                      
+
                             <h3>{{$video['title']}}</h3>
-                      
+
 	</div>
 	<div class="panel-body">
 	<ul class="nav nav-tabs">
@@ -51,7 +60,7 @@
 <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
 <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
   </div>
-                
+
 	</div>
 
 

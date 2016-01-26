@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Xavrsl\Cas\Facades\Cas;
 use Illuminate\Http\Request;
+use App\Helpers\AuthHelper;
 
 
 class VideosController extends Controller {
@@ -18,7 +19,7 @@ class VideosController extends Controller {
 			'semester' => 'required',
 			'year' => 'required',
 			'topic' => 'required',
-			'class' => 'required',
+			'num' => 'required',
 			'year' => 'required'
 		);
 
@@ -29,9 +30,9 @@ class VideosController extends Controller {
 			'title.required' => 'Error: Title is a mandatory field',
 			'instructorlast.required' => 'Error: Instructor Last Name is a mandatory field',
 			'instructorfirst.required' => 'Error: Instructor First Name is a mandatory field',
-			'semester.required' => 'Error: Semester is a mandatory field', 
+			'semester.required' => 'Error: Semester is a mandatory field',
 			'topic.required'=> 'Error: Topic is a mandatory field',
-			'class.required' => 'Error: Topic is a mandatory field',
+			'num.required' => 'Error: Class is a mandatory field',
 			'year.required' => 'Error: Semester/Year is a mandatory field',
 			'video.required' => 'Error: Please choose a Video to upload',
 			'year.required' => 'Error: Please select a year'
@@ -63,7 +64,7 @@ class VideosController extends Controller {
 		print_r($squery);
 		$videos = Video::where('instructor','like', $squery)->orWhere('title', 'like', $squery)->orderBy('id', 'DESC')->get();
 	print_r("size of videos is ".sizeof($videos));
-	foreach($videos as $vid)	{	
+	foreach($videos as $vid)	{
 	print_r($vid->title);}
 	return view('videos.index', compact('videos'));
 	}
@@ -75,21 +76,24 @@ class VideosController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-			
+      //print_r($request->input);
+
 			//Input Validation
 			$this->validate($request, $this->rules, $this->messages);
-			$this->validate($request, $this->file_rules, $this->messages);			
-	
+			$this->validate($request, $this->file_rules, $this->messages);
+
+
+			$class = $request->input('sub').''.$request->input('num');
 			$instructorname = $request->input('instructorlast'). " "  . $request->input('instructorfirst');
 			$instructor =  strtolower($request->input('instructorlast'). "" .substr($request->input('instructorfirst'), 0, 1). "" . substr($request->input('instructorfirst'), -1));
-			$vid_slug = preg_replace('/\s+/', '', $request->input('title')) .'-'. $instructor .'-'. $request->input('class');
+			$vid_slug = preg_replace('/\s+/', '', $request->input('title')) .'-'. $instructor .'-'. $class;
 			$vid_name = strtolower(preg_replace('/\s+/', '', $request->input('title')). '.' . $request->file('video')->getClientOriginalExtension());
 			$video_req = array(
 					'slug' => $vid_slug,
 					'topic' => $request->input('topic'),
-					'class' => $request->input('class'),
+					'class' => $class,
 					'instructor' => $instructorname,
-					'vid_url' => $request->input('class').'/'. $instructor . '/'.$vid_name,
+					'vid_url' => $class.'/'. $instructor . '/'.$vid_name,
 					'title' => $request->input('title'),
 					'isVerified' => FALSE,
 					'created_at' => date("Y-m-d"),
@@ -101,17 +105,18 @@ class VideosController extends Controller {
 				);
 
 
-		
+
 		$newvid = new Video($video_req);
-			
+
 		$newvid->save();
  		print_r($newvid);
+		print_r($newvid->class);
 
  		$request->file('video')->move(
-        base_path() . '/resources/uploaded_videos/' . $request->input('class') . '/' . $instructor . '/', $vid_name
+        base_path() . '/resources/uploaded_videos/' . $class . '/' . $instructor . '/', $vid_name
         );
 
-		
+
 		return Redirect::route('videos.index')->with('message', 'Video Uploaded');
 	}
 
@@ -147,13 +152,15 @@ class VideosController extends Controller {
 	public function update($video, Request $request)
 	{
 		$input = array_except(Input::all(), '_method');
+
+		$class = $request->input('sub').''.$request->input('num');
 		$old_video = $video->vid_url;
 		$vidupdated = FALSE;
 		$this->validate($request, $this->rules, $this->messages);
 
                         $instructorname = $request->input('instructorlast'). " "  . $request->input('instructorfirst');
                         $instructor =  strtolower($request->input('instructorlast'). "" .substr($request->input('instructorfirst'), 0, 1). "" . substr($request->input('instructorfirst'), -1));
-                        $vid_slug = preg_replace('/\s+/', '', $request->input('title')) .'-'. $instructor .'-'. $request->input('class');
+                        $vid_slug = preg_replace('/\s+/', '', $request->input('title')) .'-'. $instructor .'-'. $class;
 			$vid_name = "";
 			$msg = "";
 
@@ -161,8 +168,8 @@ class VideosController extends Controller {
 			$videdit = array(
                                         'slug' => $vid_slug,
                                         'topic' => $request->input('topic'),
-                                        'class' => $request->input('class'),
-                                        'instructor' => $instructorname,                                  
+                                        'class' => $class,
+                                        'instructor' => $instructorname,
                                         'title' => $request->input('title'),
                                         'isVerified' => FALSE,
                                         'updated_at' => date("Y-m-d"),
@@ -176,7 +183,7 @@ class VideosController extends Controller {
 			if($request->file('video')){
 				$vidupdated = TRUE;
 				$vid_name = strtolower(preg_replace('/\s+/', '', $request->input('title')). '.' . $request->file('video')->getClientOriginalExtension());
-				$videdit['vid_url'] = $request->input('class').'/'. $instructor . '/'.$vid_name;
+				$videdit['vid_url'] = $class.'/'. $instructor . '/'.$vid_name;
 			}
 
 		// update the video object
@@ -187,7 +194,7 @@ class VideosController extends Controller {
 		$msg = "File changed";
 		if(file_exists(video_base_path.'/'.$old_video)){
 			unlink(video_base_path.'/'.$old_video);
-		}	
+		}
 		$request->file('video')->move(
         base_path() . '/resources/uploaded_videos/' . $request->input('class') . '/' . $instructor . '/', $vid_name
         );
@@ -198,7 +205,7 @@ class VideosController extends Controller {
 
 
                 return Redirect::route('videos.show', $vid_slug)->with('message', "Video updated sucessfully. ".$msg);
-		
+
 	}
 
 	/**
@@ -209,7 +216,16 @@ class VideosController extends Controller {
 	 */
 	public function destroy($video)
 	{
-		//
+		$del_vid = \Config::get('res.up-videos').'/'.$video->vid_url;
+
+		if(AuthHelper::authenticate() == 'admin'){
+			if(file_exists($del_vid)){
+				unlink($del_vid);
+			}
+			$video->delete();
+		}
+
+		return redirect('videos');
 	}
 
 	public function logout(){

@@ -33,15 +33,15 @@ class RolesRequest extends Request {
 			}
 			case 'POST':{
 				return [
-					'user' => 'required|min:6',
+					'user' => 'required|min:3',
 					'role' => 'required',
-				];	
+				];
 			}
 			case 'PUT':
 			case 'PATCH':
 			{
 				return [
-				'user' => 'required|min:6',
+				'user' => 'required|min:3',
 				'role' => 'required',
 			];
 			}
@@ -49,8 +49,8 @@ class RolesRequest extends Request {
 			default:break;
 		}
 
-			
-		
+
+
 	}
 
 }
