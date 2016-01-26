@@ -51,7 +51,7 @@
                         </div>
                         <div class="form-group", style='max-width:100%;'>
                             {!! Form::label('class', 'Class:', array('class' => 'col-lg-2 control-label')) !!}
-                            {!! Form::select('sub', array('MAT' => 'MAT', 'APM' => 'APM', 'MTE' => 'MTE', 'STA' => 'STA'), 'MAT', array('class' => 'col-lg-2')) !!}
+                            {!! Form::select('sub', array('MAT' => 'MAT', 'APM' => 'APM', 'MTE' => 'MTE', 'STP' => 'STP', 'Other' => 'Other'), 'MAT', array('class' => 'col-lg-2')) !!}
                             {!! Form::number('num', null, array('class'=>'col-lg-6', 'style'=>'max-width:70%;','min'=>'100', 'max'=>'999')) !!}
 			     {!! Form::text('user', $user, array('class'=>'hidden')) !!}
                         </div>

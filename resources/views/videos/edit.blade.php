@@ -1,14 +1,14 @@
 @extends('app')
- 
+
 @section('content')
 
 	{!! Form::model($video, array(
             'method' => 'patch',
-	    'route' => ['videos.update', $video->slug], 
-            'class' => 'form-horizontal', 
-            'novalidate' => 'novalidate', 
+	    'route' => ['videos.update', $video->slug],
+            'class' => 'form-horizontal',
+            'novalidate' => 'novalidate',
             'files' => true)
-            ) 
+            )
     !!}
 
 
@@ -19,7 +19,7 @@
         	$instructor = preg_split('#\s+#', $video->instructor, 2);
 		$user = Cas::user();
     ?>
-	
+
         <div class = "container" style="padding:10px;">
 	@if($userRole == 'admin' || $user ==  $video->created_by)
     <div class="row" style="padding:10px">
@@ -51,9 +51,11 @@
                             {!! Form::text('instructorlast', $instructor[0], array('class'=>'col-lg-4', 'placeholder'=>'last name')) !!}
                             {!! Form::text('instructorfirst', $instructor[1], array('class'=>'col-lg-4', 'placeholder'=>'first name')) !!}
                         </div>
-                        <div class="form-group">
+                        <div class="form-group", style='max-width:100%;'>
                             {!! Form::label('class', 'Class:', array('class' => 'col-lg-2 control-label')) !!}
-                            {!! Form::text('class', null, array('class'=>'col-lg-8', 'placeholder' => 'MAT267, MAT265, etc')) !!}
+                            {!! Form::select('sub', array('MAT' => 'MAT', 'APM' => 'APM', 'MTE' => 'MTE', 'STP' => 'STP', 'Other' => 'Other'), 'MAT', array('class' => 'col-lg-2')) !!}
+                            {!! Form::number('num', null, array('class'=>'col-lg-6', 'style'=>'max-width:70%;','min'=>'100', 'max'=>'999')) !!}
+			     {!! Form::text('user', $user, array('class'=>'hidden')) !!}
                         </div>
                         <div class="form-group">
                             {!! Form::label('topic', 'Topic:', array('class' => 'col-lg-2 control-label')) !!}
@@ -79,15 +81,15 @@
                 </div>
             </div>
         </div>
-	
 
-            
+
+
             <script type="text/javascript">
 
                 function renderVideo(file) {
                   // generate a new FileReader object
                   var reader = new FileReader();
-                  url = 
+                  url =
 
                   // inject an image with the src url
                   reader.onload = function(event) {
@@ -96,15 +98,15 @@
                     $('#vid').load();
 
                   }
-                 
+
                   // when the file is read it triggers the onload event above.
                   reader.readAsDataURL(file);
                 }
-                 
+
                 // handle input changes
                 $("#video").change(function() {
                     console.log(this.files)
-                    
+
                     // grab the first image in the FileList object and pass it to the function
                     renderVideo(this.files[0])
                 });

@@ -196,7 +196,7 @@ class VideosController extends Controller {
 			unlink(video_base_path.'/'.$old_video);
 		}
 		$request->file('video')->move(
-        base_path() . '/resources/uploaded_videos/' . $request->input('class') . '/' . $instructor . '/', $vid_name
+         base_path() . '/resources/uploaded_videos/' . $class . '/' . $instructor . '/', $vid_name
         );
 	}
 	else{
@@ -216,7 +216,7 @@ class VideosController extends Controller {
 	 */
 	public function destroy($video)
 	{
-		$del_vid = \Config::get('res.up-videos').'/'.$video->vid_url;
+		$del_vid = video_base_path.'/'.$video->vid_url;
 
 		if(AuthHelper::authenticate() == 'admin'){
 			if(file_exists($del_vid)){
