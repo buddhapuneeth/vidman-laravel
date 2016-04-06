@@ -67,7 +67,7 @@
 		<li class="active"><a href="{{videos_page}}" style="font-style:Symbol; font-weight:bold; color:#903; outline:none;">Vidman - Video Management tool at SoMSS</a></li>
           </ul>
 
-	  {!! Form::open(array('action' => 'VideosController@search', 'class' => 'navbar-form navbar-left', 'role' => 'search')) !!}
+	  {!! Form::open(array('action' => 'VideosController@search', 'class' => 'navbar-form navbar-left', 'role' => 'search', 'method' => 'get')) !!}
 
             <div class="form-group">
 		{!! Form::text('search', null, array('class'=>'form-control', 'placeholder' => 'Search')) !!}
@@ -76,6 +76,7 @@
           </form>
 
           <ul class="nav navbar-nav navbar-right" >
+						<li><a href="#" disabled>Use FIREFOX/CHROME for best experience</a></li>
 	<div class="hidden">{{$userRole = AuthHelper::authenticate()}}</div>
           	@if (Cas::user())
 			@if($userRole == 'admin' || $userRole == 'faculty')

@@ -44,7 +44,7 @@ class VideosController extends Controller {
 	 */
 	public function index()
 	{
-		$videos = Video::orderBy('id', 'DESC')->get();
+		$videos = Video::orderBy('id', 'DESC')->paginate(15);
 		return view('videos.index', compact('videos'));
 	}
 
@@ -58,15 +58,25 @@ class VideosController extends Controller {
 		return view('videos.create');
 	}
 
+        public function search1($word){
+            $squery = '%'.$word. '%';
+            print_r($squery);
+            $videos = Video::where('instructor','like', $squery)->orWhere('title', 'like', $squery)->orWhere('class', 'like', $squery)->orderBy('id', 'DESC')->paginate(15);
+            print_r("size of videos is ".sizeof($videos));
+            foreach($videos as $vid)        {
+            print_r($vid->title);}
+            return view('videos.index', compact('videos'));
+        }
+
+
 
 	public function search(Request $request){
-		$squery = '%'.(string)$request->input('search'). '%';
-		print_r($squery);
-		$videos = Video::where('instructor','like', $squery)->orWhere('title', 'like', $squery)->orderBy('id', 'DESC')->get();
-	print_r("size of videos is ".sizeof($videos));
-	foreach($videos as $vid)	{
-	print_r($vid->title);}
-	return view('videos.index', compact('videos'));
+		$search = (string)$request->input('search');
+		$squery = '%'.$search. '%';
+
+		$videos = Video::where('instructor','like', $squery)->orWhere('title', 'like', $squery)->orWhere('class', 'like', $squery)->orderBy('id', 'DESC')->paginate(15);
+
+		return view('videos.search', compact('videos'))->with('search', $search);
 	}
 
 	/**

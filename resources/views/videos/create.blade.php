@@ -60,17 +60,17 @@
                             {!! Form::text('topic', null, array('class'=>'col-lg-8', 'style'=>'max-width:100%;', 'placeholder' => 'Limits, Derivatives, etc')) !!}
                         </div>
                         <div class="form-group", style='max-width:100%;'>
+                            {!! Form::label('tags', 'Keywords:', array('class' => 'col-lg-2 control-label')) !!}
+                            {!! Form::text('tags', null, array('class'=>'col-lg-8', 'style'=>'max-width:100%;', 'placeholder' => 'Optional comma seperated words - "integrals, line" ')) !!}
+                        </div>
+                        <div class="form-group", style='max-width:100%;'>
                             {!! Form::label('semester', 'Semester', array('class' => 'col-lg-2 control-label')) !!}
                             {!! Form::select('semester', array('Fall' => 'Fall', 'Spring' => 'Spring', 'Summer' => 'Summer'), 'Spring', array('class' => 'col-lg-3')) !!}
-                            {!! Form::select('year', array(2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030), 1, array('class' => 'col-lg-3')) !!}
+                            {!! Form::select('year', array(2010, 2011, 2012, 2013, 2014,2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030), 6, array('class' => 'col-lg-3')) !!}
                         </div>
 			<div class="form-group", style='max-width:100%;'>
                             {!! Form::label('desc', 'Description:', array('class' => 'col-lg-2 control-label')) !!}
-                            {!! Form::textarea('description', null, array('class'=>'col-lg-8', 'style'=>'max-width:100%;', 'placeholder' => 'Optional description to the video. This will be displayed below the video in the web page.')) !!}
-                        </div>
-                        <div class="form-group", style='max-width:100%;'>
-                            {!! Form::label('tags', 'Tags:', array('class' => 'col-lg-2 control-label')) !!}
-                            {!! Form::text('tags', null, array('class'=>'col-lg-8', 'style'=>'max-width:100%;', 'placeholder' => 'Optional comma seperated words - "integrals, line" ')) !!}
+                            {!! Form::textarea('description', null, array('class'=>'col-lg-8', 'rows'=>'5', 'style'=>'max-width:100%;', 'placeholder' => 'Optional description to the video. This will be displayed below the video in the web page.')) !!}
                         </div>
                         <div class="form-group", style='max-width:100%;'>
                             {!! Form::submit('Upload', ['class'=>'cols-lg-4 col-lg-offset-2 btn btn-primary']) !!}

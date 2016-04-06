@@ -5,7 +5,7 @@
 
 <div class="container" style="position:relative; background-color:#fff;">
 
-<h3> List of videos</h3> 
+<h3> List of videos</h3>
 
 <!--<div class="container videos-results">-->
 
@@ -57,7 +57,7 @@
 
 
 		</ul>
-		<center>{!! $videos->render() !!}</center>
+		<center>{!! $videos->appends(['search'=>$search])->render() !!}</center>
 	@endif
 </div>
 <!-- </div> -->

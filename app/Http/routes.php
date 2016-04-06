@@ -17,10 +17,10 @@ Route::model('roles', 'Role');
 Route::get('/', function(){
 	return view('welcome');
 });
-Route::get('home', 'HomeController@index');
+//Route::get('home', 'HomeController@index');
 Route::get('/logout', 'VideosController@logout');
 Route::get('resources/videos/{class}/{instructor}/{file}', 'ResourceController@getVideo');
-Route::post('/videos/search/{search}','VideosController@search');
+Route::get('/videos/search','VideosController@search');
 Route::resource('videos', 'VideosController');
 
 /*
