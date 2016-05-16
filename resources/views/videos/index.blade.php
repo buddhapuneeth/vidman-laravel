@@ -44,9 +44,10 @@
 
 								@endif
 							</p></strong>
-
+								<div class="hidden">{{$userRole = AuthHelper::authenticate()}}</div>
+								@if($userRole == 'admin' || $userRole == 'faculty')
 								<div class="well well-sm"><p class="text-primary"><strong>{{video_absolute_path}}/{{$video['vid_url']}}<strong></p></div>
-
+								@endif	
 						</div>
 					</div>
 

@@ -86,7 +86,7 @@
 						<div class = "col-sm-12">
 							<center><div class="container" class = "padding:20px"><img src="https://vidman.asu.edu/vidman-homepage.gif" width=320px height="240px"></img></div></center>
 							<br/><br/>
-							<center><div class ="container">	<a href="https://vidman.asu.edu/index.php/videos" class = "btn btn-primary btn-lg" ><strong>Go To Videos</strong></a></div></center>
+							<center><div class ="container">	<a href={{videos_url}} class = "btn btn-primary btn-lg" ><strong>Go To Videos</strong></a></div></center>
 						</div>
 
 					<div class = "col-sm-6" style="padding:20px">
