@@ -17,6 +17,11 @@
         <?php
 		$userRole = AuthHelper::authenticate();
         	$instructor = preg_split('#\s+#', $video->instructor, 2);
+					$classField = $video->class;
+					$sub = substr($classField,0,3);
+					$num = substr($classField,3,6);
+					$year = $video->year;
+					$semester = $video->semester;
 		$user = Cas::user();
     ?>
 
@@ -53,8 +58,8 @@
                         </div>
                         <div class="form-group", style='max-width:100%;'>
                             {!! Form::label('class', 'Class:', array('class' => 'col-lg-2 control-label')) !!}
-                            {!! Form::select('sub', array('MAT' => 'MAT', 'APM' => 'APM', 'MTE' => 'MTE', 'STP' => 'STP', 'Other' => 'Other'), 'MAT', array('class' => 'col-lg-2')) !!}
-                            {!! Form::number('num', null, array('class'=>'col-lg-6', 'style'=>'max-width:70%;','min'=>'100', 'max'=>'999')) !!}
+                            {!! Form::select('sub', array('MAT' => 'MAT', 'APM' => 'APM', 'MTE' => 'MTE', 'STP' => 'STP', 'Other' => 'Other'), $sub, array('class' => 'col-lg-2')) !!}
+                            {!! Form::number('num', $num, array('class'=>'col-lg-6', 'style'=>'max-width:70%;','min'=>'100', 'max'=>'999')) !!}
 			     {!! Form::text('user', $user, array('class'=>'hidden')) !!}
                         </div>
                         <div class="form-group">
@@ -67,8 +72,8 @@
                         </div>
                         <div class="form-group">
                             {!! Form::label('semester', 'Semester', array('class' => 'col-lg-2 control-label')) !!}
-                            {!! Form::select('semester', array('Fall' => 'Fall', 'Spring' => 'Spring', 'Summer' => 'Summer'), 'Spring', array('class' => 'col-lg-3')) !!}
-                            {!! Form::select('year', array(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030), 6, array('class' => 'col-lg-3')) !!}
+                            {!! Form::select('semester', array('Fall' => 'Fall', 'Spring' => 'Spring', 'Summer' => 'Summer'), $semester, array('class' => 'col-lg-3')) !!}
+                            {!! Form::select('year', array('2010' => 2010, '2011' => 2011, '2012' => 2012, '2013' => 2013,'2014' => 2014,'2015' =>2015, '2016' =>2016, '2017' =>2017,'2018' => 2018, '2019' =>2019, '2020' =>2020, '2021' =>2021, '2022' =>2022, '2023' =>2023, '2024' =>2024, '2025' =>2025, '2026' =>2026, '2027' =>2027, '2028' =>2028, '2029' =>2029, '2030' =>2030), $year, array('class' => 'col-lg-3')) !!}
                         </div>
 			<div class="form-group">
                             {!! Form::label('desc', 'Description:', array('class' => 'col-lg-2 control-label')) !!}

@@ -22,7 +22,10 @@ Route::get('/logout', 'VideosController@logout');
 Route::get('resources/videos/{class}/{instructor}/{file}', 'ResourceController@getVideo');
 Route::get('/videos/search','VideosController@search');
 Route::resource('videos', 'VideosController');
+Route::get('/videos/class/{class}', 'VideosController@getClass');
+Route::get('/menu','MenuController@menuList');
 
+//changed from remote edit
 /*
 Route::post('register', function(){
 	alert("inside routes");
@@ -56,3 +59,11 @@ Route::resource('roles', 'RolesController' );
 Route::bind('roles', function($value, $route){
 		return App\Role::findOrFail($value);
 	});
+// added by buddha for dynamic dropdown - start
+// Route::get('api/dropdown', function(){
+//   $input = Input::get('class');
+//
+// 	$res = "Introduction";
+// 	return Response::$res;
+// });
+// added by buddha for dynamic dropdown - end

@@ -5,7 +5,7 @@
 
 <div class="container" style="position:relative; background-color:#fff;">
 
-<h3> List of videos</h3> 
+<h3> List of videos</h3>
 
 <!--<div class="container videos-results">-->
 
@@ -47,7 +47,7 @@
 								<div class="hidden">{{$userRole = AuthHelper::authenticate()}}</div>
 								@if($userRole == 'admin' || $userRole == 'faculty')
 								<div class="well well-sm"><p class="text-primary"><strong>{{video_absolute_path}}/{{$video['vid_url']}}<strong></p></div>
-								@endif	
+								@endif
 						</div>
 					</div>
 
