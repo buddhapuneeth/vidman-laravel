@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Xavrsl\Cas\Facades\Cas;
 use Illuminate\Http\Request;
 use App\Helpers\AuthHelper;
+use App\Topic;
 
 
 class VideosController extends Controller {
@@ -55,7 +56,8 @@ class VideosController extends Controller {
 	 */
 	public function create()
 	{
-		return view('videos.create');
+		$topics = Topic::orderBy('priority','ASC')->get();
+		return view('videos.create',compact('topics'));
 	}
 
         public function search1($word){
@@ -79,6 +81,10 @@ class VideosController extends Controller {
 		return view('videos.search', compact('videos'))->with('search', $search);
 	}
 
+		public function getClass(Request $request){
+
+		}
+
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -91,8 +97,14 @@ class VideosController extends Controller {
 			//Input Validation
 			$this->validate($request, $this->rules, $this->messages);
 			$this->validate($request, $this->file_rules, $this->messages);
-
-
+			$topicVal = $request->input('topic');
+			if(!($request->input('othertopic')) == NULL){
+				$topicVal = $request->input('othertopic');
+				$courseVal = $request->input('sub').$request->input('num');
+				$oldPriority = Topic::where('course',$courseVal)->max('priority');
+				$priority = $oldPriority+1;
+				$id = Topic::insertGetId(['course' => $courseVal, 'priority' => $priority , 'topic' => $topicVal]);
+			}
 			$class = $request->input('sub').''.$request->input('num');
 			$instructorname = $request->input('instructorlast'). " "  . $request->input('instructorfirst');
 			$instructor =  strtolower($request->input('instructorlast'). "" .substr($request->input('instructorfirst'), 0, 1). "" . substr($request->input('instructorfirst'), -1));
@@ -100,7 +112,7 @@ class VideosController extends Controller {
 			$vid_name = strtolower(preg_replace('/\s+/', '', $request->input('title')). '.' . $request->file('video')->getClientOriginalExtension());
 			$video_req = array(
 					'slug' => $vid_slug,
-					'topic' => $request->input('topic'),
+					'topic' => $topicVal,
 					'class' => $class,
 					'instructor' => $instructorname,
 					'vid_url' => $class.'/'. $instructor . '/'.$vid_name,
@@ -183,7 +195,7 @@ class VideosController extends Controller {
                                         'title' => $request->input('title'),
                                         'isVerified' => FALSE,
                                         'updated_at' => date("Y-m-d"),
-                                        'updated_by' => 'ravi',//Cas::getCurrentUser(),
+                                        'updated_by' => 'Buddha',//Cas::getCurrentUser(),
                                         'tags' => $request->input('tags'),
                                         'semester' => $request->input('semester'),
 					'year' => $request->input('year'),

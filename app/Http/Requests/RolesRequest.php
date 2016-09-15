@@ -27,17 +27,19 @@ class RolesRequest extends Request {
 	{
 		switch($this->method()){
 			case 'GET':
+				break;
 			case 'DELETE':
 			{
 				return [];
 			}
 			case 'POST':{
 				return [
-					'user' => 'required|min:3',
+					'user' => 'required|min:1',
 					'role' => 'required',
 				];
 			}
 			case 'PUT':
+				break;
 			case 'PATCH':
 			{
 				return [

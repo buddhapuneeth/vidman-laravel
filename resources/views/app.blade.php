@@ -45,7 +45,6 @@
 	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
 
-
 </head>
 <body  style="background-color:#EEE; position:;">
 	<div name = "body" class = "container" style="height:100%; position:relative; min-height:100%;">
@@ -115,7 +114,7 @@
       </div>
     @endif
 </div>
-
+<br>
 
 
       @yield('content')
