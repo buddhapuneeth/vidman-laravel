@@ -217,8 +217,10 @@
           <?php foreach($topics as $topic){ ?>
             if(courseTitle == '<?=$topic -> course?>')
              {
-              $('#topic').append('<option><?=$topic -> topic?></option>')
-              console.log('<?=$topic -> topic?>');
+               var topicName = "<?=$topic -> topic?>";
+               topicName = topicName.replace(/'/g, "''");
+              $('#topic').append('<option>'+topicName+'</option>')
+              console.log("<?=$topic -> topic?>");
              }
           <?php } ?>
             });
