@@ -63,6 +63,10 @@
                             {!! Form::select('topic',  array('None','Other'), 'None', array('id' =>'topic', 'class' => 'col-lg-2')) !!}
                             {!! Form::text('othertopic', null, array('id' =>'othertopic', 'placeholder'=>'enter new topic' , 'class'=>'hidden')) !!}
                         </div>
+                        <div class="form-group">
+                            {!! Form::label('unit', 'Unit:', array('class' => 'col-lg-2 control-label')) !!}
+                            {!! Form::select('unit',array('None'),'None',array('id' =>'unit', 'class' => 'col-lg-2')) !!}
+                        </div>
                         <div class="form-group", style='max-width:100%;'>
                             {!! Form::label('tags', 'Keywords:', array('class' => 'col-lg-2 control-label')) !!}
                             {!! Form::text('tags', null, array('class'=>'col-lg-8', 'style'=>'max-width:100%;', 'placeholder' => 'Optional comma seperated words - "integrals, line" ')) !!}
@@ -72,7 +76,7 @@
                             {!! Form::select('semester', array('Fall' => 'Fall', 'Spring' => 'Spring', 'Summer' => 'Summer'), 'Spring', array('class' => 'col-lg-3')) !!}
                             {!! Form::select('year', array('2010' => 2010, '2011' => 2011, '2012' => 2012, '2013' => 2013,'2014' => 2014,'2015' =>2015, '2016' =>2016, '2017' =>2017,'2018' => 2018, '2019' =>2019, '2020' =>2020, '2021' =>2021, '2022' =>2022, '2023' =>2023, '2024' =>2024, '2025' =>2025, '2026' =>2026, '2027' =>2027, '2028' =>2028, '2029' =>2029, '2030' =>2030), 2016, array('class' => 'col-lg-3')) !!}
                         </div>
-      <div class="form-group", style='max-width:100%;'>
+                        <div class="form-group", style='max-width:100%;'>
                             {!! Form::label('desc', 'Description:', array('class' => 'col-lg-2 control-label')) !!}
                             {!! Form::textarea('description', null, array('class'=>'col-lg-8', 'rows'=>'5', 'style'=>'max-width:100%;', 'placeholder' => 'Optional description to the video. This will be displayed below the video in the web page.')) !!}
                         </div>
@@ -212,16 +216,23 @@
           $('#topic').append('<option>None</option>');
           $('#topic').append('<option>Other</option>');
           // additional code
-
-          console.log(`<?php foreach ($topics as $topic) { echo $topic -> topic; }?>`);
           <?php foreach($topics as $topic){ ?>
-            if(courseTitle == '<?=$topic -> course?>')
+            if(courseTitle == '<?=$topic -> class?>')
              {
                var topicName = "<?=$topic -> topic?>";
                topicName = topicName.replace(/'/g, "''");
               $('#topic').append('<option>'+topicName+'</option>')
               console.log("<?=$topic -> topic?>");
              }
+          <?php } ?>
+          $('#unit').empty();
+          <?php foreach($units as $unit){ ?>
+            if(courseTitle == '<?=$unit -> course?>')
+            {
+              var unitName = "<?=$unit -> unit?>";
+              unitName = unitName.replace(/'/g, "''");
+              $('#unit').append('<option>'+unitName+'</option>')
+            }
           <?php } ?>
             });
       $('#sub').on('change', function(e) {
@@ -230,6 +241,30 @@
           $sub = e.target.value;
           console.log($sub);
                 console.log($num);
+                var courseTitle = $sub+$num;
+                console.log("Title " +courseTitle);
+                $('#topic').empty();
+                $('#topic').append('<option>None</option>');
+                $('#topic').append('<option>Other</option>');
+                // additional code
+                <?php foreach($topics as $topic){ ?>
+                  if(courseTitle == '<?=$topic -> class?>')
+                   {
+                     var topicName = "<?=$topic -> topic?>";
+                     topicName = topicName.replace(/'/g, "''");
+                    $('#topic').append('<option>'+topicName+'</option>')
+                    console.log("<?=$topic -> topic?>");
+                   }
+                <?php } ?>
+                $('#unit').empty();
+                <?php foreach($units as $unit){ ?>
+                  if(courseTitle == '<?=$unit -> course?>')
+                  {
+                    var unitName = "<?=$unit -> unit?>";
+                    unitName = unitName.replace(/'/g, "''");
+                    $('#unit').append('<option>'+unitName+'</option>')
+                  }
+                <?php } ?>
             });
       $('#topic').on('change', function(e) {
                 console.log("in method topic");

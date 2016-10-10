@@ -22,6 +22,12 @@
 					$num = substr($classField,3,6);
 					$year = $video->year;
 					$semester = $video->semester;
+					$topic = $video->topic;
+					$unit = $video->unit;
+					// $('#unit').append('<options>'+One+'<options>');
+					// $('#unit').append('<options>'+Two+'<options>');
+					//$('#unit').val('One');
+
 		$user = Cas::user();
     ?>
 
@@ -58,13 +64,18 @@
                         </div>
                         <div class="form-group", style='max-width:100%;'>
                             {!! Form::label('class', 'Class:', array('class' => 'col-lg-2 control-label')) !!}
-                            {!! Form::select('sub', array('MAT' => 'MAT', 'APM' => 'APM', 'MTE' => 'MTE', 'STP' => 'STP', 'Other' => 'Other'), $sub, array('class' => 'col-lg-2')) !!}
-                            {!! Form::number('num', $num, array('class'=>'col-lg-6', 'style'=>'max-width:70%;','min'=>'100', 'max'=>'999')) !!}
-			     {!! Form::text('user', $user, array('class'=>'hidden')) !!}
+                            {!! Form::select('sub', array('MAT' => 'MAT', 'APM' => 'APM', 'MTE' => 'MTE', 'STP' => 'STP', 'Other' => 'Other'), $sub, array('id' => 'sub','class' => 'col-lg-2')) !!}
+                            {!! Form::number('num', $num, array('id'=>'num','class'=>'col-lg-6', 'style'=>'max-width:70%;','min'=>'100', 'max'=>'999')) !!}
+			     									{!! Form::text('user', $user, array('class'=>'hidden')) !!}
                         </div>
                         <div class="form-group">
                             {!! Form::label('topic', 'Topic:', array('class' => 'col-lg-2 control-label')) !!}
-                            {!! Form::text('topic', null, array('class'=>'col-lg-8', 'placeholder' => 'Limits, Derivatives, etc')) !!}
+														{!! Form::select('topic',  array('None','Other'),$topic , array('id' =>'topic', 'class' => 'col-lg-2')) !!}
+                            {!! Form::text('othertopic', null, array('id' =>'othertopic', 'placeholder'=>'enter new topic' , 'class'=>'hidden')) !!}
+                        </div>
+												<div class="form-group">
+                            {!! Form::label('unit', 'Unit:', array('class' => 'col-lg-2 control-label')) !!}
+                            {!! Form::select('unit',array('None'),null,array('id' =>'unit', 'class' => 'col-lg-2')) !!}
                         </div>
                         <div class="form-group">
                             {!! Form::label('tags', 'Keywords:', array('class' => 'col-lg-2 control-label')) !!}
@@ -90,7 +101,109 @@
 
 
             <script type="text/javascript">
-
+						$num = 100;
+ 						$sub = "MAT";
+						$courseTitle = "MAT100";
+								window.onload = function(){assignments();};
+									function assignments(){
+										$num = '<?=$num?>';
+    								$sub = '<?=$sub?>';
+										var courseTitle = $sub+$num;
+										$('#unit').empty();
+										<?php foreach($units as $unitItem){ ?>
+            					if(courseTitle == '<?=$unitItem -> course?>')
+             					{
+               					var unitName = "<?=$unitItem -> unit?>";
+               					unitName = unitName.replace(/'/g, "''");
+              					$('#unit').append('<option>'+unitName+'</option>');
+             					}
+          					<?php } ?>
+										$('#unit').val('<?=$unit?>');
+										$('#topic').empty();
+										$('#topic').append('<option>None</option>');
+					          $('#topic').append('<option>Other</option>');
+										<?php foreach($topics as $topicItem){ ?>
+            					if(courseTitle == '<?=$topicItem -> class?>')
+             					{
+               					var topicName = "<?=$topicItem -> topic?>";
+               					topicName = topicName.replace(/'/g, "''");
+              					$('#topic').append('<option>'+topicName+'</option>');
+             					}
+          					<?php } ?>
+										$('#topic').val('<?=$topic?>');
+									}
+									// code from create.blade.php
+									$('#num').on('change', function(e) {
+				                console.log("in method num");
+				          console.log(e.target.value);
+				          $num = e.target.value;
+				          console.log($sub);
+				          console.log($num);
+				          var courseTitle = $sub+$num;
+				          console.log("Title " +courseTitle);
+				          $('#topic').empty();
+				          $('#topic').append('<option>None</option>');
+				          $('#topic').append('<option>Other</option>');
+				          // additional code
+				          <?php foreach($topics as $topic){ ?>
+				            if(courseTitle == '<?=$topic -> class?>')
+				             {
+				               var topicName = "<?=$topic -> topic?>";
+				               topicName = topicName.replace(/'/g, "''");
+				              $('#topic').append('<option>'+topicName+'</option>')
+				              console.log("<?=$topic -> topic?>");
+				             }
+				          <?php } ?>
+				          $('#unit').empty();
+				          <?php foreach($units as $unit){ ?>
+				            if(courseTitle == '<?=$unit -> course?>')
+				            {
+				              var unitName = "<?=$unit -> unit?>";
+				              unitName = unitName.replace(/'/g, "''");
+				              $('#unit').append('<option>'+unitName+'</option>')
+				            }
+				          <?php } ?>
+				            });
+				      $('#sub').on('change', function(e) {
+				                console.log("in method sub");
+				                console.log(e.target.value);
+				          $sub = e.target.value;
+				          console.log($sub);
+				                console.log($num);
+				                var courseTitle = $sub+$num;
+				                console.log("Title " +courseTitle);
+				                $('#topic').empty();
+				                $('#topic').append('<option>None</option>');
+				                $('#topic').append('<option>Other</option>');
+				                // additional code
+				                <?php foreach($topics as $topic){ ?>
+				                  if(courseTitle == '<?=$topic -> class?>')
+				                   {
+				                     var topicName = "<?=$topic -> topic?>";
+				                     topicName = topicName.replace(/'/g, "''");
+				                    $('#topic').append('<option>'+topicName+'</option>')
+				                    console.log("<?=$topic -> topic?>");
+				                   }
+				                <?php } ?>
+				                $('#unit').empty();
+				                <?php foreach($units as $unit){ ?>
+				                  if(courseTitle == '<?=$unit -> course?>')
+				                  {
+				                    var unitName = "<?=$unit -> unit?>";
+				                    unitName = unitName.replace(/'/g, "''");
+				                    $('#unit').append('<option>'+unitName+'</option>')
+				                  }
+				                <?php } ?>
+				            });
+				      $('#topic').on('change', function(e) {
+				                console.log("in method topic");
+				                console.log(e.target.value);
+				                if(e.target.value == "Other")
+				                $('#othertopic').removeAttr('class');
+				                else
+				                $('#othertopic').attr('class','hidden');
+				            });
+										// end new code
                 function renderVideo(file) {
                   // generate a new FileReader object
                   var reader = new FileReader();
