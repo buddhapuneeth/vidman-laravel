@@ -56,8 +56,9 @@ class VideosController extends Controller {
 	 */
 	public function create()
 	{
-		$topics = Topic::orderBy('priority','ASC')->get();
-		return view('videos.create',compact('topics'));
+		$topics = Video::distinct()->get(['topic','class']);
+		$units  = Topic::get();
+		return view('videos.create',compact('topics','units'));
 	}
 
         public function search1($word){
@@ -100,10 +101,10 @@ class VideosController extends Controller {
 			$topicVal = $request->input('topic');
 			if(!($request->input('othertopic')) == NULL){
 				$topicVal = $request->input('othertopic');
-				$courseVal = $request->input('sub').$request->input('num');
-				$oldPriority = Topic::where('course',$courseVal)->max('priority');
-				$priority = $oldPriority+1;
-				$id = Topic::insertGetId(['course' => $courseVal, 'priority' => $priority , 'topic' => $topicVal]);
+				// $courseVal = $request->input('sub').$request->input('num');
+				// $oldPriority = Topic::where('course',$courseVal)->max('priority');
+				// $priority = $oldPriority+1;
+				// $id = Topic::insertGetId(['course' => $courseVal, 'priority' => $priority , 'topic' => $topicVal]);
 			}
 			$class = $request->input('sub').''.$request->input('num');
 			$instructorname = $request->input('instructorlast'). " "  . $request->input('instructorfirst');
@@ -123,7 +124,8 @@ class VideosController extends Controller {
 					'tags' => $request->input('tags'),
 					'semester' => $request->input('semester'),
 					'year'=>  $request->input('year'),
-					'description'=> $request->input('description')
+					'description'=> $request->input('description'),
+					'unit'=>$request->input('unit')
 				);
 
 
@@ -162,7 +164,9 @@ class VideosController extends Controller {
 	 */
 	public function edit($video)
 	{
-		return view('videos.edit', compact('video'));
+		$units = Topic::orderBy('priority','ASC')->get();
+		$topics = Video::distinct()->select(['class','topic'])->orderBy('class','ASC')->get();
+		return view('videos.edit', compact('video','units','topics'));
 	}
 
 	/**
@@ -179,7 +183,14 @@ class VideosController extends Controller {
 		$old_video = $video->vid_url;
 		$vidupdated = FALSE;
 		$this->validate($request, $this->rules, $this->messages);
-
+		$topicVal = $request->input('topic');
+		if(!($request->input('othertopic')) == NULL){
+			$topicVal = $request->input('othertopic');
+			// $courseVal = $request->input('sub').$request->input('num');
+			// $oldPriority = Topic::where('course',$courseVal)->max('priority');
+			// $priority = $oldPriority+1;
+			// $id = Topic::insertGetId(['course' => $courseVal, 'priority' => $priority , 'topic' => $topicVal]);
+		}
                         $instructorname = $request->input('instructorlast'). " "  . $request->input('instructorfirst');
                         $instructor =  strtolower($request->input('instructorlast'). "" .substr($request->input('instructorfirst'), 0, 1). "" . substr($request->input('instructorfirst'), -1));
                         $vid_slug = preg_replace('/\s+/', '', $request->input('title')) .'-'. $instructor .'-'. $class;
@@ -189,7 +200,7 @@ class VideosController extends Controller {
 			// video object
 			$videdit = array(
                                         'slug' => $vid_slug,
-                                        'topic' => $request->input('topic'),
+                                        'topic' => $topicVal,
                                         'class' => $class,
                                         'instructor' => $instructorname,
                                         'title' => $request->input('title'),
@@ -199,7 +210,8 @@ class VideosController extends Controller {
                                         'tags' => $request->input('tags'),
                                         'semester' => $request->input('semester'),
 					'year' => $request->input('year'),
-					'description' => $request->input('description')
+					'description' => $request->input('description'),
+					'unit' => $request->input('unit')
                                 );
 			//if the video file is changed
 			if($request->file('video')){
