@@ -35,7 +35,8 @@
 						</div>
 						<div class="cols-xs-8" style="position:relative; overflow:auto;">
 							<a href="{{ URL::route('videos.show', $video['slug']) }}"><h4 >{{ucwords($video['title'])}}</h4></a>
-							<strong><p> Unit: {{$video['unit']}} <br/>
+							<strong><p>
+								<!-- Unit: {{$video['unit']}} <br/> -->
 								Topic: {{$video['topic']}} <br/>
 								Instructor: {{ $video['instructor'] }} <br/>
 								@if ( !$video['updated_at'] )
