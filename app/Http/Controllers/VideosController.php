@@ -76,8 +76,9 @@ class VideosController extends Controller {
 	public function search(Request $request){
 		$search = (string)$request->input('search');
 		$squery = '%'.$search. '%';
+		$squeryWithoutSpaces = preg_replace('/\s+/', '', $squery);
 
-		$videos = Video::where('instructor','like', $squery)->orWhere('title', 'like', $squery)->orWhere('class', 'like', $squery)->orderBy('id', 'DESC')->paginate(15);
+		$videos = Video::where('instructor','like', $squery)->orWhere('instructor','like', $squeryWithoutSpaces)->orWhere('title', 'like', $squery)->orWhere('title', 'like', $squeryWithoutSpaces)->orWhere('class', 'like', $squery)->orWhere('class', 'like', $squeryWithoutSpaces)->orderBy('id', 'DESC')->paginate(15);
 
 		return view('videos.search', compact('videos'))->with('search', $search);
 	}
