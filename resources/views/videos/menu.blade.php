@@ -49,7 +49,7 @@
                                                                   <div class="hidden">{{$userRole = AuthHelper::authenticate()}}</div>
                                                                         @if($userRole == 'admin' || $userRole == 'faculty')
                                                                             <div class="well well-sm"><p class="text-primary"><strong>{{video_absolute_path}}/{{$itemVideo['vid_url']}}<strong></p></div>
-                                                                              <div class="well well-sm"><p class="text-primary"><strong>&lt;video width=&quot;640&quot; height=&quot;360&quot; allowtransparency=&quot;true&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; controls&gt; &lt;source src=&quot;//{{video_absolute_path}}/{{$itemVideo['vid_url']}}&quot; type=&quot;video/mp4&quot;&gt;
+                                                                              <div class="well well-sm"><p class="text-primary"><strong>&lt;video width=&quot;640&quot; height=&quot;360&quot; allowtransparency=&quot;true&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; controls&gt; &lt;source src=&quot;{{video_absolute_path}}/{{$itemVideo['vid_url']}}&quot; type=&quot;video/mp4&quot;&gt;
   											                                                                       Your browser does not support the video tag.
   											                                                            &lt;/video&gt;<strong></p></div>
                                                                         @endif
