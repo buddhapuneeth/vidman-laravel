@@ -54,9 +54,7 @@
                                                                             textarea{font-size:10px;vertical-align:middle}
                                                                             button{vertical-align:middle}
                                                                             </style>
-                                                                            <textarea class="js-copytextarea" id="clipboard{{$itemVideo['id']}}" rows="1" cols="10">&lt;video width=&quot;640&quot; height=&quot;360&quot; allowtransparency=&quot;true&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; controls&gt; &lt;source src=&quot;{{video_absolute_path}}/{{$itemVideo['vid_url']}}&quot; type=&quot;video/mp4&quot;&gt;
-                                                                                  Your browser does not support the video tag. Please try in different browser or update your browser.
-                                                                                  &lt;/video&gt;</textarea><button class="js-textareacopybtn" onclick="copy('clipboard{{$itemVideo['id']}}')">copy embed tag</button>
+                                                                            <textarea class="js-copytextarea" id="clipboard{{$itemVideo['id']}}" rows="1" cols="10">&lt;a target=&quot;_blank&quot; href=&quot;{{video_absolute_path}}/{{$itemVideo['vid_url']}}&quot;&gt;Click here to watch video&lt;/a&gt;</textarea><button class="js-textareacopybtn" onclick="copy('clipboard{{$itemVideo['id']}}')">copy embed tag</button>
                                                                         @endif
                                                                   </div>
                                                                 </div>
