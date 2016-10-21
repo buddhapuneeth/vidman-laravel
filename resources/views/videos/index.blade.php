@@ -49,9 +49,14 @@
 								<div class="hidden">{{$userRole = AuthHelper::authenticate()}}</div>
 								@if($userRole == 'admin' || $userRole == 'faculty')
 								<div class="well well-sm"><p class="text-primary"><strong>{{video_absolute_path}}/{{$video['vid_url']}}<strong></p></div>
-								<div class="well well-sm"><p class="text-primary"><strong>&lt;video width=&quot;640&quot; height=&quot;360&quot; allowtransparency=&quot;true&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; controls&gt; &lt;source src=&quot;{{video_absolute_path}}/{{$video['vid_url']}}&quot; type=&quot;video/mp4&quot;&gt;
-											Your browser does not support the video tag.
-											&lt;/video&gt;<strong></p></div>
+								<style type='text/css'>
+								form{display:inline;}
+								textarea{font-size:10px;vertical-align:middle}
+								button{vertical-align:middle}
+								</style>
+								<textarea class="js-copytextarea" id="clipboard{{$video['id']}}" rows="1" cols="10">&lt;video width=&quot;640&quot; height=&quot;360&quot; allowtransparency=&quot;true&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; controls&gt; &lt;source src=&quot;{{video_absolute_path}}/{{$video['vid_url']}}&quot; type=&quot;video/mp4&quot;&gt;
+											Your browser does not support the video tag. Please try in different browser or update your browser.
+											&lt;/video&gt;</textarea><button class="js-textareacopybtn" onclick="copy('clipboard{{$video['id']}}')">copy embed tag</button>
 								@endif
 						</div>
 					</div>
@@ -67,4 +72,15 @@
 	@endif
 </div>
 <!-- </div> -->
+<script type="text/javascript">
+function copy(id) {
+	var text = document.getElementById(id);
+	text.select();
+	try{
+			document.execCommand('copy');
+		}catch(err){
+			console.log("error in copying");
+		}
+}
+</script>
 @endsection
