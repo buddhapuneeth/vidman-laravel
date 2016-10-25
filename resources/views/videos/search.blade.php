@@ -55,7 +55,7 @@
 							textarea{font-size:10px;vertical-align:middle}
 							button{vertical-align:middle}
 							</style>
-							<textarea class="js-copytextarea" id="clipboard{{$video['id']}}" rows="1" cols="10">&lt;a target=&quot;_blank&quot; href=&quot;{{video_absolute_path}}/{{$video['vid_url']}}&quot;&gt;Click here to watch video&lt;/a&gt;</textarea><button class="js-textareacopybtn" onclick="copy('clipboard{{$video['id']}}')">copy embed tag</button>
+							<textarea class="js-copytextarea" id="clipboard{{$video['id']}}" rows="1" cols="10">&lt;iframe name=&quot;wistia_embed&quot; width=&quot;645&quot; height=&quot;365&quot; src=&quot;{{video_player}}/{{$video['vid_url']}}&quot; allowtransparency=&quot;true&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; allowfullscreen=&quot;yes&quot;&gt;&lt;/iframe&gt;</textarea><button class="js-textareacopybtn" onclick="copy('clipboard{{$video['id']}}')">copy embed tag</button>
 							@endif
 
 						</div>
