@@ -24,7 +24,7 @@ Route::get('/videos/search','VideosController@search');
 Route::resource('videos', 'VideosController');
 Route::get('/videos/class/{class}', 'VideosController@getClass');
 Route::get('/menu','MenuController@menuList');
-
+Route::get('/play/{class}/{instructor}/{file}','PlayerController@playVideo');
 //changed from remote edit
 /*
 Route::post('register', function(){
