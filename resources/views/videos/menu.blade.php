@@ -13,14 +13,14 @@
                     @foreach ($classes as $class)
                      <div class="collapse-group">
                         <li class="list-group-item"  >
-                            <h3 data-toggle="collapse" data-target="#details-{{preg_replace($patterns,'',$class['class'])}}">{{$class['class']}} &raquo;</h3>
+                            <h3><a data-toggle="collapse" data-target="#details-{{preg_replace($patterns,'',$class['class'])}}" href="#details-{{preg_replace($patterns,'',$class['class'])}}" aria-expanded="true" aria-controls="details-{{preg_replace($patterns,'',$class['class'])}}">{{$class['class']}} &raquo;</a></h3>
                                 <div id="details-{{preg_replace($patterns,'',$class['class'])}}" class="collapse">
                                     <ul class = "list-group">
                                       @foreach ($menuList as $item)
                                             @if ($class['class']==$item['course'])
                                             <div class="collapse-group">
                                                 <li class="list-group-item"  >
-                                                    <h4 data-toggle="collapse" data-target="#details-{{preg_replace($patterns,'',$class['class'])}}-{{preg_replace($patterns,'',$item['unit'])}}"> {{$item['unit']}} &raquo;</h4>
+                                                    <h4><a data-toggle="collapse" data-target="#details-{{preg_replace($patterns,'',$class['class'])}}-{{preg_replace($patterns,'',$item['unit'])}}" href="#details-{{preg_replace($patterns,'',$class['class'])}}" aria-expanded="true" aria-controls="details-{{preg_replace($patterns,'',$class['class'])}}"> {{$item['unit']}} &raquo;</a></h3>
                                                         <div id="details-{{preg_replace($patterns,'',$class['class'])}}-{{preg_replace($patterns,'',$item['unit'])}}" class="collapse">
                                                           <ul class = "list-group">
                                                             @foreach ($data as $itemVideo)
@@ -55,11 +55,11 @@
                                                                             button{vertical-align:middle}
                                                                             </style>
                                                                             <textarea class="js-copytextarea" id="clipboard{{$itemVideo['id']}}" rows="1" cols="10">&lt;iframe name=&quot;wistia_embed&quot; width=&quot;645&quot; height=&quot;365&quot; src=&quot;{{video_player}}/{{$itemVideo['vid_url']}}&quot; allowtransparency=&quot;true&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; allowfullscreen=&quot;yes&quot;&gt;&lt;/iframe&gt;</textarea><button class="js-textareacopybtn" onclick="copy('clipboard{{$itemVideo['id']}}')">Blackboard embed tag</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                              							<textarea class="js-copytextarea" id="clipboardWeb{{$itemVideo['id']}}" rows="1" cols="10">&lt;video width=&quot;640&quot; height=&quot;360&quot; allowtransparency=&quot;true&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; controls&gt;
-                                                              								&lt;source src=&quot;{{video_absolute_path}}/{{$itemVideo['vid_url']}}"&quot; type=&quot;video/mp4&quot;&gt;
-                                                              								Your browser does not support the video tag.
-                                                              								&lt;/video&gt;</textarea><button class="js-textareacopybtn" onclick="copy('clipboardWeb{{$itemVideo['id']}}')">Web embed tag</button>
-                                                              							@endif
+                                                                            <textarea class="js-copytextarea" id="clipboardWeb{{$itemVideo['id']}}" rows="1" cols="10">&lt;video width=&quot;640&quot; height=&quot;360&quot; allowtransparency=&quot;true&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; controls&gt;
+                                                                              &lt;source src=&quot;{{video_absolute_path}}/{{$itemVideo['vid_url']}}"&quot; type=&quot;video/mp4&quot;&gt;
+                                                                              Your browser does not support the video tag.
+                                                                              &lt;/video&gt;</textarea><button class="js-textareacopybtn" onclick="copy('clipboardWeb{{$itemVideo['id']}}')">Web embed tag</button>
+                                                                            @endif
                                                                   </div>
                                                                 </div>
                                                                 <li>
@@ -81,13 +81,13 @@
 @endif
 <script type="text/javascript">
 function copy(id) {
-	var text = document.getElementById(id);
-	text.select();
-	try{
-			document.execCommand('copy');
-		}catch(err){
-			console.log("error in copying");
-		}
+  var text = document.getElementById(id);
+  text.select();
+  try{
+      document.execCommand('copy');
+    }catch(err){
+      console.log("error in copying");
+    }
 }
 </script>
 @endsection
