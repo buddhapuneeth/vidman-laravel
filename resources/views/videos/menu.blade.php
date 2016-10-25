@@ -54,8 +54,12 @@
                                                                             textarea{font-size:10px;vertical-align:middle}
                                                                             button{vertical-align:middle}
                                                                             </style>
-                                                                            <textarea class="js-copytextarea" id="clipboard{{$itemVideo['id']}}" rows="1" cols="10">&lt;iframe name=&quot;wistia_embed&quot; width=&quot;645&quot; height=&quot;365&quot; src=&quot;{{video_player}}/{{$itemVideo['vid_url']}}&quot; allowtransparency=&quot;true&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; allowfullscreen=&quot;yes&quot;&gt;&lt;/iframe&gt;</textarea><button class="js-textareacopybtn" onclick="copy('clipboard{{$itemVideo['id']}}')">copy embed tag</button>
-                                                                        @endif
+                                                                            <textarea class="js-copytextarea" id="clipboard{{$itemVideo['id']}}" rows="1" cols="10">&lt;iframe name=&quot;wistia_embed&quot; width=&quot;645&quot; height=&quot;365&quot; src=&quot;{{video_player}}/{{$itemVideo['vid_url']}}&quot; allowtransparency=&quot;true&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; allowfullscreen=&quot;yes&quot;&gt;&lt;/iframe&gt;</textarea><button class="js-textareacopybtn" onclick="copy('clipboard{{$itemVideo['id']}}')">Blackboard embed tag</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                              							<textarea class="js-copytextarea" id="clipboardWeb{{$itemVideo['id']}}" rows="1" cols="10">&lt;video width=&quot;640&quot; height=&quot;360&quot; allowtransparency=&quot;true&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; controls&gt;
+                                                              								&lt;source src=&quot;{{video_absolute_path}}/{{$itemVideo['vid_url']}}"&quot; type=&quot;video/mp4&quot;&gt;
+                                                              								Your browser does not support the video tag.
+                                                              								&lt;/video&gt;</textarea><button class="js-textareacopybtn" onclick="copy('clipboardWeb{{$itemVideo['id']}}')">Web embed tag</button>
+                                                              							@endif
                                                                   </div>
                                                                 </div>
                                                                 <li>
