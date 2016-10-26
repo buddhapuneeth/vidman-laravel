@@ -13,14 +13,14 @@
                     @foreach ($classes as $class)
                      <div class="collapse-group">
                         <li class="list-group-item"  >
-                            <h3><a data-toggle="collapse" data-target="#details-{{preg_replace($patterns,'',$class['class'])}}" href="#details-{{preg_replace($patterns,'',$class['class'])}}" aria-expanded="true" aria-controls="details-{{preg_replace($patterns,'',$class['class'])}}">{{$class['class']}} &raquo;</a></h3>
+                            <h3><button style="background:transparent; border:none;" data-toggle="collapse" data-target="#details-{{preg_replace($patterns,'',$class['class'])}}" href="#details-{{preg_replace($patterns,'',$class['class'])}}" aria-expanded="true" aria-controls="details-{{preg_replace($patterns,'',$class['class'])}}">{{$class['class']}} &raquo;</button></h3>
                                 <div id="details-{{preg_replace($patterns,'',$class['class'])}}" class="collapse">
                                     <ul class = "list-group">
                                       @foreach ($menuList as $item)
                                             @if ($class['class']==$item['course'])
                                             <div class="collapse-group">
                                                 <li class="list-group-item"  >
-                                                    <h4><a data-toggle="collapse" data-target="#details-{{preg_replace($patterns,'',$class['class'])}}-{{preg_replace($patterns,'',$item['unit'])}}" href="#details-{{preg_replace($patterns,'',$class['class'])}}" aria-expanded="true" aria-controls="details-{{preg_replace($patterns,'',$class['class'])}}"> {{$item['unit']}} &raquo;</a></h3>
+                                                    <h4><button style="background:transparent; border:none;" data-toggle="collapse" data-target="#details-{{preg_replace($patterns,'',$class['class'])}}-{{preg_replace($patterns,'',$item['unit'])}}" href="#details-{{preg_replace($patterns,'',$class['class'])}}" aria-expanded="true" aria-controls="details-{{preg_replace($patterns,'',$class['class'])}}"> {{$item['unit']}} &raquo;</button></h3>
                                                         <div id="details-{{preg_replace($patterns,'',$class['class'])}}-{{preg_replace($patterns,'',$item['unit'])}}" class="collapse">
                                                           <ul class = "list-group">
                                                             @foreach ($data as $itemVideo)
