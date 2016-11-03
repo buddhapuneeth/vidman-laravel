@@ -73,15 +73,21 @@ class VideosController extends Controller {
 
 
 
-	public function search(Request $request){
-		$search = (string)$request->input('search');
-		$squery = '%'.$search. '%';
-		$squeryWithoutSpaces = preg_replace('/\s+/', '', $squery);
+				public function search(Request $request){
+						$search = (string)$request->input('search');
+						$arr =  explode(" ", $search);
+						$squery = '%'.$search. '%';
+						$squeryWithoutSpaces = preg_replace('/\s+/', '', $squery);
+						$videos = Video::where(function($query) use ($arr){
+						foreach($arr as $item){
+							$query->where(function($query) use ($item) {
+								$query->where('class','like', '%'.$item. '%')->orWhere('instructor','like', '%'.$item. '%')->orWhere('tags','like','%'.$item. '%')->orWhere('title', 'like', '%'.$item. '%');
+							});
+						}
 
-		$videos = Video::where('instructor','like', $squery)->orWhere('instructor','like', $squeryWithoutSpaces)->orWhere('title', 'like', $squery)->orWhere('tags','like',$squery)->orWhere('title', 'like', $squeryWithoutSpaces)->orWhere('class', 'like', $squery)->orWhere('class', 'like', $squeryWithoutSpaces)->orderBy('id', 'DESC')->paginate(15);
-
-		return view('videos.search', compact('videos'))->with('search', $search);
-	}
+					})->paginate(15);
+					return view('videos.search', compact('videos'))->with('search', $search);
+				}
 
 		public function getClass(Request $request){
 
