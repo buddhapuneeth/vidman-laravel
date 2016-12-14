@@ -35,3 +35,7 @@ elseif (file_exists($compiledPath = __DIR__.'/../storage/framework/compiled.php'
 {
 	require $compiledPath;
 }
+elseif (file_exists($compliedPath = __DIR__.'/cache/compiled.php'))
+{
+	require $compiledPath;
+}
