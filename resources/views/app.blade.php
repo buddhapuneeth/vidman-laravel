@@ -80,6 +80,8 @@
           	@if (Cas::user())
 			@if($userRole == 'admin' || $userRole == 'faculty')
 				<li>{!! link_to_route('videos.create', 'Upload Video', null, array('style'=>'font-weight:bold; color:#2196f3; outline:none;')) !!}</li>
+				<li><a href="{{action('CommentsController@showComments')}}" style="font-weight:bold; color:#2196f3; outline:none;">Monitor Comments</a></li>
+
         @if($userRole == 'admin')
           <li>{!! link_to_route('roles.index', 'Admin', null, array('style'=>'font-weight:bold; outline:none;')) !!}</li>
           @endif

@@ -13,6 +13,7 @@
 // Provide controller methods with object instead of ID
 Route::model('videos', 'Video');
 Route::model('roles', 'Role');
+//Route::model('comments','Comment');
 //Route::get('api/admin', ['as' => 'admin', 'middleware'=>'ajax', 'uses' => 'RoleController@index']);
 Route::get('/', function(){
 	return view('welcome');
@@ -25,6 +26,26 @@ Route::resource('videos', 'VideosController');
 Route::get('/videos/class/{class}', 'VideosController@getClass');
 Route::get('/menu','MenuController@menuList');
 Route::get('/play/{class}/{instructor}/{file}','PlayerController@playVideo');
+#Route::resource('comments', 'CommentsController');
+
+Route::post('addComment', array('uses' => 'CommentsController@addComment'));
+Route::post('addReply', array('uses' => 'CommentsController@addReply'));
+Route::get('editComment', array('uses' => 'CommentsController@editComment'));
+Route::post('editCommentStatus', array('uses' => 'CommentsController@editCommentStatus'));
+Route::get('showReplies', array('uses' => 'CommentsController@showReplies'));
+Route::get('showComments', array('uses' => 'CommentsController@showComments'));
+Route::get('filter', array('uses' => 'CommentsController@filter'));
+//Route::post('filter', array('uses' => 'CommentsController@filter'));
+//Route::get('/videos/CommentsController/showReplies','CommentsController@showReplies');
+//Route::get('/editComments/{slag}','CommentsController@editComment');
+// Route::bind('comments', function($value, $route){
+// 		return App\Comment::whereSlug($value)->first();
+// 	});
+//Route::post('/comments/store', 'CommentsController@store');
+// Route::post('comments', [
+// 	    'as' => 'comments.store',
+// 	    'uses' => 'CommentsController@store',
+// 	]);
 //changed from remote edit
 /*
 Route::post('register', function(){
@@ -59,6 +80,7 @@ Route::resource('roles', 'RolesController' );
 Route::bind('roles', function($value, $route){
 		return App\Role::findOrFail($value);
 	});
+
 // added by buddha for dynamic dropdown - start
 // Route::get('api/dropdown', function(){
 //   $input = Input::get('class');
