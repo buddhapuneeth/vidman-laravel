@@ -3,12 +3,14 @@
 use Input;
 use Redirect;
 use App\Video;
+use App\Comment;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Xavrsl\Cas\Facades\Cas;
 use Illuminate\Http\Request;
 use App\Helpers\AuthHelper;
 use App\Topic;
+use Illuminate\Support\Facades\Log;
 
 
 class VideosController extends Controller {
@@ -101,7 +103,6 @@ class VideosController extends Controller {
 	public function store(Request $request)
 	{
       //print_r($request->input);
-
 			//Input Validation
 			$this->validate($request, $this->rules, $this->messages);
 			$this->validate($request, $this->file_rules, $this->messages);
@@ -159,8 +160,16 @@ class VideosController extends Controller {
 	 */
 	public function show($video)
 	{
+		$comments = Comment::where('slug','like',$video['slug'])->get();
+		if(!$comments->count() )
+			{
+					Log::info("yes you have comments");
+			}
+			else{
+					Log::info(" you have no comments");
+			}
 
-		return view('videos.show', compact('video'));
+		return view('videos.show', compact('video'),compact('comments'));
 	}
 
 	/**
