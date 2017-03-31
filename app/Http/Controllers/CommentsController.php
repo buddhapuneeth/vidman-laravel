@@ -75,7 +75,7 @@ class CommentsController extends Controller
     }
     public function editComment(Request $request)
     {
-      $selections = array('posts_all'=>1,'posts_comments'=>0,'posts_replies'=>0,'status_all'=>1,'status_visible'=>0,'status_hide'=>0,'status_spam'=>0);
+      $selections = array('posts_all'=>1,'posts_comments'=>0,'posts_replies'=>0,'status_all'=>1,'status_visible'=>0,'status_hide'=>0,'status_spam'=>0 ,'end' => \Carbon\Carbon::now(), 'start' =>  \Carbon\Carbon::now()->subWeek());
       $input = array_filter($request->all(),'strlen');
       $item_slug = $input['slug'];
       Log::info("slug is".$input['slug']);
@@ -89,7 +89,7 @@ class CommentsController extends Controller
       $posts_all = $input['posts_all'];
       Log::info("id in editStatus is ".$input['id1']);
       Log::info("selection in return".$input['change_status']);
-      $selections = array('posts_all'=>$input['posts_all'],'posts_comments'=>$input['posts_comments'],'posts_replies'=>$input['posts_replies'],'status_all'=>$input['status_all'],'status_visible'=>$input['status_visible'],'status_hide'=>$input['status_hide'],'status_spam'=>$input['status_spam']);
+      $selections = array('posts_all'=>$input['posts_all'],'posts_comments'=>$input['posts_comments'],'posts_replies'=>$input['posts_replies'],'status_all'=>$input['status_all'],'status_visible'=>$input['status_visible'],'status_hide'=>$input['status_hide'],'status_spam'=>$input['status_spam'],'start'=>$input['start'],'end'=>$input['end']);
       if($input['change_status']=="visible"){
           $returnval = Comment::where('id','like',$input['id1'])->update(['show_status'=> 1]);
       }
@@ -127,18 +127,21 @@ class CommentsController extends Controller
       return view('videos.replies' , compact('comments','parent'));
     }
     public function showComments(Request $request){
-      $selections = array('posts_all'=>1,'posts_comments'=>0,'posts_replies'=>0,'status_all'=>1,'status_visible'=>0,'status_hide'=>0,'status_spam'=>0);
-      $comments = Comment::orderBy('show_status', 'ASC')->paginate(15);
+      $selections = array('posts_all'=>1,'posts_comments'=>0,'posts_replies'=>0,'status_all'=>1,'status_visible'=>0,'status_hide'=>0,'status_spam'=>0, 'end' => \Carbon\Carbon::now(), 'start' =>  \Carbon\Carbon::now()->subWeek());
+      $comments = Comment::orderBy('show_status', 'ASC')->whereBetween('updated_at',[$selections['start'],$selections['end']])->paginate(15);
       $item_slug = "-1"; //inferring view that call is at global level, not at particular video level
-      return view('videos.comments',compact('comments','selections','item_slug'));
+      $classes = Video::distinct()->groupBy('class')->get();
+      return view('videos.comments',compact('comments','selections','item_slug','classes'));
     }
     public function filter(Request $request){
       Log::info(" Inside filter, request received");
+      Log::info("dates:".$request['start']);
+      Log::info("dates:".$request['end']);
       Log::info(" Inside filter, slug received is ".$request->input('item_slug'));
       $item_slug = $request->input('item_slug');
       $posts = $request->input('posts');
       $status = $request->input('status');
-      $selections = array('posts_all'=>0,'posts_comments'=>0,'posts_replies'=>0,'status_all'=>0,'status_visible'=>0,'status_hide'=>0,'status_spam'=>0);
+      $selections = array('posts_all'=>0,'posts_comments'=>0,'posts_replies'=>0,'status_all'=>0,'status_visible'=>0,'status_hide'=>0,'status_spam'=>0,'start' => $request['start'], 'end' => $request['end']);
       if($status== 2){
           $selections['status_all']= 1;
       }elseif($status== 1){
@@ -160,19 +163,23 @@ class CommentsController extends Controller
     public function common_filter($selections,$item_slug,$status){
       Log::info("inside common filter");
       Log::info("inside common filter, item_slug is ".$item_slug);
+      Log::info("inside common filter, dates:".$selections['start']);
+      Log::info("inside common filter, dates:".$selections['end']);
       if($selections['posts_all'] == 1){
         Log::info("all comments");
         if($status== 2){
+           Log::info("in status 2 allcomments");
             if($item_slug=="-1"){
-              $comments = Comment::orderBy('show_status', 'ASC')->paginate(15);
+              $comments = Comment::orderBy('show_status', 'ASC')->whereBetween('updated_at',[$selections['start'],$selections['end']])->paginate(15);
             }else{
-              $comments = Comment::orderBy('show_status', 'ASC')->where('slug','like',$item_slug)->paginate(15);
+              $comments = Comment::orderBy('show_status', 'ASC')->whereBetween('updated_at',[$selections['start'],$selections['end']])->where('slug','like',$item_slug)->paginate(15);
             }
         }else {
             if($item_slug=="-1"){
-              $comments = Comment::orderBy('show_status', 'ASC')->where('show_status','like',$status)->paginate(15);
+              $comments = Comment::orderBy('show_status', 'ASC')->where('show_status','like',$status)->whereBetween('updated_at',[$selections['start'],$selections['end']])->paginate(15);
+              //->whereBetween('updated_at',['2017-02-22','2017-03-28'])
             }else{
-              $comments = Comment::orderBy('show_status', 'ASC')->where('slug','like',$item_slug)->where('show_status','like',$status)->paginate(15);
+              $comments = Comment::orderBy('show_status', 'ASC')->where('slug','like',$item_slug)->where('show_status','like',$status)->whereBetween('updated_at',[$selections['start'],$selections['end']])->paginate(15);
             }
               //$comments = Comment::orderBy('show_status', 'ASC')->where('show_status','like',$status)->paginate(15);
         }
@@ -181,16 +188,16 @@ class CommentsController extends Controller
           Log::info("only comments");
           if($status == 2){
             if($item_slug=="-1"){
-              $comments = Comment::orderBy('show_status', 'ASC')->whereNull('parent')->paginate(15);
+              $comments = Comment::orderBy('show_status', 'ASC')->whereNull('parent')->whereBetween('updated_at',[$selections['start'],$selections['end']])->paginate(15);
             }else{
-              $comments = Comment::orderBy('show_status', 'ASC')->where('slug','like',$item_slug)->whereNull('parent')->paginate(15);
+              $comments = Comment::orderBy('show_status', 'ASC')->where('slug','like',$item_slug)->whereNull('parent')->whereBetween('updated_at',[$selections['start'],$selections['end']])->paginate(15);
             }
               //$comments = Comment::orderBy('show_status', 'ASC')->whereNull('parent')->paginate(15);
           }else {
             if($item_slug=="-1"){
-              $comments = Comment::orderBy('show_status', 'ASC')->where('show_status','like',$status)->whereNull('parent')->paginate(15);
+              $comments = Comment::orderBy('show_status', 'ASC')->where('show_status','like',$status)->whereNull('parent')->whereBetween('updated_at',[$selections['start'],$selections['end']])->paginate(15);
             }else{
-              $comments = Comment::orderBy('show_status', 'ASC')->where('slug','like',$item_slug)->where('show_status','like',$status)->whereNull('parent')->paginate(15);
+              $comments = Comment::orderBy('show_status', 'ASC')->where('slug','like',$item_slug)->where('show_status','like',$status)->whereNull('parent')->whereBetween('updated_at',[$selections['start'],$selections['end']])->paginate(15);
             }
                 //$comments = Comment::orderBy('show_status', 'ASC')->where('show_status','like',$status)->whereNull('parent')->paginate(15);
           }
@@ -198,22 +205,22 @@ class CommentsController extends Controller
           Log::info("only replies");
           if($status == 2){
             if($item_slug=="-1"){
-              $comments = Comment::orderBy('show_status', 'ASC')->whereNotNull('parent')->paginate(15);
+              $comments = Comment::orderBy('show_status', 'ASC')->whereNotNull('parent')->whereBetween('updated_at',[$selections['start'],$selections['end']])->paginate(15);
             }else{
-              $comments = Comment::orderBy('show_status', 'ASC')->where('slug','like',$item_slug)->whereNotNull('parent')->paginate(15);
+              $comments = Comment::orderBy('show_status', 'ASC')->where('slug','like',$item_slug)->whereNotNull('parent')->whereBetween('updated_at',[$selections['start'],$selections['end']])->paginate(15);
             }
               //$comments = Comment::orderBy('show_status', 'ASC')->whereNotNull('parent')->paginate(15);
           }else {
             if($item_slug=="-1"){
-              $comments = Comment::orderBy('show_status', 'ASC')->where('show_status','like',$status)->whereNotNull('parent')->paginate(15);
+              $comments = Comment::orderBy('show_status', 'ASC')->where('show_status','like',$status)->whereNotNull('parent')->whereBetween('updated_at',[$selections['start'],$selections['end']])->paginate(15);
             }else{
-              $comments = Comment::orderBy('show_status', 'ASC')->where('slug','like',$item_slug)->where('show_status','like',$status)->whereNotNull('parent')->paginate(15);
+              $comments = Comment::orderBy('show_status', 'ASC')->where('slug','like',$item_slug)->where('show_status','like',$status)->whereNotNull('parent')->whereBetween('updated_at',[$selections['start'],$selections['end']])->paginate(15);
             }
                 //$comments = Comment::orderBy('show_status', 'ASC')->where('show_status','like',$status)->whereNotNull('parent')->paginate(15);
           }
       }else{
           Log::info("no selection");
-          $comments = Comment::orderBy('show_status', 'ASC')->paginate(15);
+          $comments = Comment::orderBy('show_status', 'ASC')->whereBetween('updated_at',[$selections['start'],$selections['end']])->paginate(15);
       }
       return view('videos.comments',compact('comments','selections','item_slug'));
     }
