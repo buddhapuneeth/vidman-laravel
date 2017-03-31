@@ -1,13 +1,12 @@
 @extends('app')
 
 @section('content')
+<div class="jumbotron">
 @if ( !$comments->count() )
         You have no comments
 
 @endif
-
-
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 {!! Form::open(array('class'=>'form-horizontal','action'=>'CommentsController@filter','method' => 'get')) !!}
 {!! csrf_field() !!}
 
@@ -30,10 +29,15 @@
 {!! Form::label('Spam', 'Spam') !!}
 {!! Form::text('item_slug', $item_slug, array('id' =>'item_slug' , 'class'=>'hidden')) !!}
 <br>
+{!! Form::label('Start date', 'Start date')!!}
+{!! Form::date('start',$selections['start'], array('id'=>'start_date', 'class'=>'datepicker') ) !!}
+{!! Form::label('End date', 'End date')!!}
+{!! Form::date('end', $selections['end'], array('id'=>'end_date', 'class'=>'datepicker')) !!}
+
+<br>
 {!! Form::submit('Filter',['style'=>"outline:none; font-weight:bold; color:#990033"]) !!}
-
 {!! Form::close() !!}
-
+</div>
 <ul class = "list-group">
 
 
@@ -95,6 +99,8 @@
             {!! Form::text('status_visible',$selections['status_visible'] ,array( 'id' => 'status_visible', 'class'=>'hidden')) !!}
             {!! Form::text('status_spam',$selections['status_spam'] ,array( 'id' => 'status_spam', 'class'=>'hidden')) !!}
             {!! Form::text('item_slug', $item_slug, array('id' =>'item_slug' , 'class'=>'hidden')) !!}
+            {!! Form::text('start',$selections['start'], array('id' => 'start', 'class'=>'hidden')) !!}
+            {!! Form::text('end',$selections['end'],array('id' => 'end', 'class'=>'hidden')) !!}
 						{!! Form::submit('Change Status',['style'=>"outline:none; font-weight:bold; color:#990033"]) !!}
 						{!! Form::close() !!}
 
@@ -104,10 +110,7 @@
     </li>
 
 @endforeach
-
-
 </ul>
-
 {{ $comments->appends(Input::except('page'))->render()}}
 <script type = "text/javascript">
 function filter_comments(){
@@ -128,7 +131,19 @@ function filter_comments(){
       }
   })
 }
+// $(function() {
+//    $( "#datepicker" ).datepicker();
+//  });
+$(document).ready(function () {
 
+    $('.datepicker').datepicker({});
+
+});
+$(document).ready(function () {
+       $("#start_date").datepicker({
+           dateFormat: 'yy/mm/dd'
+       });
+   });
 </script>
 
 
