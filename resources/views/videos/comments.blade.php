@@ -33,8 +33,28 @@
 {!! Form::date('start',$selections['start'], array('id'=>'start_date', 'class'=>'datepicker') ) !!}
 {!! Form::label('End date', 'End date')!!}
 {!! Form::date('end', $selections['end'], array('id'=>'end_date', 'class'=>'datepicker')) !!}
-
 <br>
+@if($item_slug== -1)
+<label>Class
+<select name ="class" id ="class" class="form-control input-sm">
+  <option value="all">All</option>
+  @foreach($classes as $c)
+        @if($c['class']!=$class)
+            <option value="{!!$c['class']!!}">
+               {!!$c['class']!!}
+            </option>
+        @else
+        <option value="{!!$c['class']!!}" selected>
+           {!!$c['class']!!}
+        </option>
+        @endif
+  @endforeach
+</select>
+</label>
+<br>
+@else
+{!! Form::text('class', $class, array('id' =>'class' , 'class'=>'hidden')) !!}
+@endif
 {!! Form::submit('Filter',['style'=>"outline:none; font-weight:bold; color:#990033"]) !!}
 {!! Form::close() !!}
 </div>
@@ -101,6 +121,7 @@
             {!! Form::text('item_slug', $item_slug, array('id' =>'item_slug' , 'class'=>'hidden')) !!}
             {!! Form::text('start',$selections['start'], array('id' => 'start', 'class'=>'hidden')) !!}
             {!! Form::text('end',$selections['end'],array('id' => 'end', 'class'=>'hidden')) !!}
+            {!! Form::text('class',$class,array('id' => 'class', 'class'=>'hidden')) !!}
 						{!! Form::submit('Change Status',['style'=>"outline:none; font-weight:bold; color:#990033"]) !!}
 						{!! Form::close() !!}
 
