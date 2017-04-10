@@ -70,6 +70,7 @@
 
         <div class="cols-xs-8" style="position:relative; overflow:auto;">
           <strong><p>
+            Title  : {{$comment['title']}} <br/>
             @if( $comment['parent'] != NULL)
             Reply to : {{ $comment['par_com']}} <br/>
             Reply for : {{ $comment['par_user']}} <br/>

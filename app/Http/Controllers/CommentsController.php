@@ -37,6 +37,7 @@ class CommentsController extends Controller
           'class' =>$input['class'],
           'instructor' => $input['instructor'],
           'slug' => $input['slug'],
+          'title' => $input['title'],
           'show_status'=>"False"
         );
         $newComment = new Comment($comment_req);
