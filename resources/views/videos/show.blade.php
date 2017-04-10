@@ -82,6 +82,7 @@
 			 {!! Form::text('student',$user, array('id' =>'student' , 'class'=>'hidden')) !!}
 			 {!! Form::text('class', $video['class'], array('id' =>'class' , 'class'=>'hidden')) !!}
 			 {!! Form::text('instructor', $video['instructor'], array('id' =>'instructor' , 'class'=>'hidden')) !!}
+			 {!! Form::text('title', $video['title'], array('id' =>'title' , 'class'=>'hidden')) !!}
 	 </div>
 	 <div class="form-group" align="left">
 			 {!! Form::submit('Post as '.$user) !!}
