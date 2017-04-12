@@ -67,6 +67,7 @@ class CommentsController extends Controller
           'parent' => $com['id'],
           'par_com'=>$com['comment'],
           'par_user'=>$com['student'],
+          'title'=>$com['title'],
           'show_status'=>"False"
         );
         $newComment = new Comment($comment_req);
@@ -184,7 +185,7 @@ class CommentsController extends Controller
       Log::info("inside common filter, dates:".$selections['start']);
       Log::info("inside common filter, dates:".$selections['end']);
       Log::info("inside common filter, class:".$class);
-      if($class=="all"){
+      if($class=="all" || $class=="All"){
         $classes_list = "%";
       }else{
           $classes_list = $class;
